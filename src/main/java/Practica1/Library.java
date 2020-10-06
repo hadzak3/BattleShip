@@ -3,6 +3,7 @@
  */
 package Practica1;
 
+//comentario de prueba
 public class Library {
     public boolean someLibraryMethod() {
         return true;
