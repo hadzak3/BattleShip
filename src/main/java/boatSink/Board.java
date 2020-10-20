@@ -1,8 +1,9 @@
 package boatSink;
 
+
 public class Board {
-	
-	private Cell cells;
+
+	private Cell arrayOfCells[][];
 	
 	/**
 	 *  comprueba si es agua o tocado:
@@ -11,6 +12,18 @@ public class Board {
 	 * @param x
 	 * @param y
 	 */
+	
+	Board(int numberOfCells){
+		System.out.println("Inicializando el tablero con " + numberOfCells + " casillas");
+		arrayOfCells = new Cell[numberOfCells][numberOfCells];
+	}
+	public void setShip(String name, int orientation, int x, int y) {
+		System.out.println("Seteando barco en la posicion: " + x + y);
+		arrayOfCells[x][y].setX(x);
+		arrayOfCells[x][y].setY(y);
+		Ship s = new Ship(name,orientation);
+		arrayOfCells[x][y].setShip(s);
+	}
 	private void shoot(int x, int y) {
 		/* Pseudo code :
 		boolean isDown = true;
