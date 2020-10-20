@@ -33,29 +33,36 @@ public final class MainController {
 		numberOfShips = scanner.nextInt();
 		//por cada barco pedimos los atributos
 		for(int i = 0; i < numberOfShips; i++) {
+			scanner.nextLine(); //throw away the \n not consumed by nextInt()
 			//Pedimos nombre de barco
 			printer.askNameShip();
 			nameShip = scanner.nextLine();
 			//pedimos tamaño de barco
 			printer.askLengthShip();
 			sizeShip = scanner.nextInt();
+			
 			//Pedimos orientacion del barco (horizontal o vertical)
 			printer.askOrientationShip();
 			orientation = scanner.nextInt();
-			//pedimos posicion del barco (x,y)
 			//por cada casilla del barco pedimos coordenada
 			for(int j = 0; j < sizeShip; j++) {
-				printer.askPositionShip();
-				printer.askX();
-				x = scanner.nextInt();
-				printer.askY();
-				y = scanner.nextInt();
-				board.setShip(nameShip, orientation, x, y);
-				
+					printer.askPositionShip(nameShip);
+					printer.askX();
+					x = scanner.nextInt();
+					printer.askY();
+					y = scanner.nextInt();
+					board.setShip(sizeShip,nameShip, orientation, x, y);
 			}
-
-
 		}
+		System.out.println("Tablero listo");
+		//mientras no se haya acabado la partida
+		printer.showBoard();
+		System.out.println("Donde quieres disparar?");
+		printer.askX();
+		x = scanner.nextInt();
+		printer.askY();
+		y = scanner.nextInt();
+		System.out.println("Disparando en " + x + ", "+ y);
+		board.shoot(x,y);
 	}
-
 }

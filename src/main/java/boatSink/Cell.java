@@ -8,7 +8,9 @@ public class Cell {
 	
 	private Ship ship = null;
 	
-	
+	Cell(){
+		
+	}
 	public void setX(int x) {
 		this.x = x;
 	}

@@ -4,6 +4,7 @@ package boatSink;
 public class Board {
 
 	private Cell arrayOfCells[][];
+	int sizeOfBoard;
 	
 	/**
 	 *  comprueba si es agua o tocado:
@@ -14,37 +15,33 @@ public class Board {
 	 */
 	
 	Board(int numberOfCells){
+		//inicializamos las celdas del tablero
 		System.out.println("Inicializando el tablero con " + numberOfCells + " casillas");
+		sizeOfBoard = numberOfCells;
 		arrayOfCells = new Cell[numberOfCells][numberOfCells];
+		for(int i = 0; i < numberOfCells; i++) {
+			for(int j = 0; j < numberOfCells; j++) {
+				arrayOfCells[i][j] = new Cell();
+			}
+		}
 	}
-	public void setShip(String name, int orientation, int x, int y) {
-		System.out.println("Seteando barco en la posicion: " + x + y);
+	public void setShip(int sizeOfShip, String name, int orientation, int x, int y) {
+		System.out.println("Seteando parte del barco en la posicion: " + x + y);
+		
 		arrayOfCells[x][y].setX(x);
 		arrayOfCells[x][y].setY(y);
-		Ship s = new Ship(name,orientation);
+		Ship s = new Ship(sizeOfShip, name,orientation);
 		arrayOfCells[x][y].setShip(s);
 	}
-	private void shoot(int x, int y) {
-		/* Pseudo code :
-		boolean isDown = true;
-		boolean isShip = false;
-		for (cell : cells)
-		 {
-		 	if (cell.isShip()) {
-				cell.ship.isDown = true;
-				isShip = true;
-
-			    String ship_name = cell.getShipName();
-				for (cell : cells)
-				{
-					 if (cell.getShipName() != ship_name) {
-				        isDown = false;
-				   		break;
-				   }
-				}
-			}
-		 }
-
-		return isShip; */
+	public void shoot(int x, int y) {
+		
+		if(arrayOfCells[x][y].getShip() != null) {
+			arrayOfCells[x][y].getShip().shootShip();
+			System.out.println("Barco " + arrayOfCells[x][y].getShip().getName() + " tocado");
+		}
+		else {
+			System.out.println("Agua");
+		}
+		
 	}
 }
