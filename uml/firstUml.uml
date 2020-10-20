@@ -1,0 +1,51 @@
+@startuml
+
+class Ship
+{
+  -name : String  
+  -isDown : boolean
+  -orientation : int
+
+  -isDown() : boolean
+}
+
+class Cell
+{
+  -x : int
+  -y : int
+  -ship : Ship
+  
+  setX(int x) : void
+  setY(int y) : void
+  setShip(Ship ship) : void
+  getX() : int
+  getX() : int
+  getShip() : Ship
+  evaluate(x: int, y: int)
+  isShip() : boolean
+}
+
+class Board
+{
+  -cells : Cell
+    
+  -shoot(x : int, y : int) : void 
+}
+
+class MainController
+{
+  main() : void
+}
+
+class Printer 
+{
+    printBoard(board : Board) : void
+}
+
+
+MainController .right> Board : creates
+MainController .up.> Printer : print board state
+Board --> "16" Cell : contains
+Cell --> Ship : contains
+
+@enduml
