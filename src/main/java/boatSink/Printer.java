@@ -10,11 +10,8 @@ public class Printer {
 	public void showBoard() {
 		System.out.println("*se muestra tablero*");
 	}
-	public void askBoardCells() {
-		System.out.println("¿De cuántas casillas quieres el tablero?");
-	}
-	public void askNumberOfShips() {
-		System.out.println("¿Cuántos barcos quieres insertar?");
+	public void askNumberOfShips(int nCells) {
+		System.out.println("¿Cuántos barcos quieres insertar?" + " maximo " + nCells + " barcos");
 	}
 	public void askPositionShip(String nombre) {
 		System.out.println("Donde quieres colocar el barco " + nombre + "?");

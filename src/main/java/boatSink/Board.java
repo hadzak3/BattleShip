@@ -16,7 +16,7 @@ public class Board {
 	
 	Board(int numberOfCells){
 		//inicializamos las celdas del tablero
-		System.out.println("Inicializando el tablero con " + numberOfCells + " casillas");
+		System.out.println("Inicializando el tablero con " + numberOfCells + " por " + numberOfCells + " casillas" );
 		sizeOfBoard = numberOfCells;
 		arrayOfCells = new Cell[numberOfCells][numberOfCells];
 		for(int i = 0; i < numberOfCells; i++) {
@@ -25,13 +25,15 @@ public class Board {
 			}
 		}
 	}
-	public void setShip(int sizeOfShip, String name, int orientation, int x, int y) {
-		System.out.println("Seteando parte del barco en la posicion: " + x + y);
+	public boolean setShip(int sizeOfShip, String name, int orientation, int x, int y) {
+		System.out.println("Seteando parte del barco en la posicion: (" +  x + ", "+ y +")");
 		
 		arrayOfCells[x][y].setX(x);
 		arrayOfCells[x][y].setY(y);
 		Ship s = new Ship(sizeOfShip, name,orientation);
 		arrayOfCells[x][y].setShip(s);
+		System.out.println("Barco insertado correctamente");
+		return true;
 	}
 	public void shoot(int x, int y) {
 		
