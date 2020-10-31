@@ -1,11 +1,13 @@
 package boatSink;
 
+import java.util.ArrayList;
 
 public class Board {
 
 	private Cell arrayOfCells[][];
-	int sizeOfBoard;
-	
+	private int sizeOfBoard;
+	private ArrayList<Ship> shipPlayer1;
+	private ArrayList<Ship> shipIA;
 	/**
 	 *  comprueba si es agua o tocado:
  	 *  si es tocado comprueba si se ha hundido el barco
@@ -44,6 +46,17 @@ public class Board {
 		else {
 			System.out.println("Agua");
 		}
-		
+	}
+	public boolean finishGame() {
+		for(int i = 0; i < sizeOfBoard; i++) {
+			for(int j = 0; j < sizeOfBoard; j++) {
+				if(arrayOfCells[i][j].isShip()) {
+					if(!arrayOfCells[i][j].getShip().getIsDown()) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
 }

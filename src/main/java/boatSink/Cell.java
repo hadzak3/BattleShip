@@ -22,6 +22,7 @@ public class Cell {
 
 	public void setShip(Ship ship) {
 		this.ship = ship;
+		this.ship.addCell(this);
 	}
 	
 	

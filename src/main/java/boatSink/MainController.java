@@ -2,6 +2,7 @@ package boatSink;
 
 import java.util.Scanner;
 
+
 public final class MainController {
 
 
@@ -24,6 +25,7 @@ public final class MainController {
 		//El tablero siempre sera de 10x10 casillas
 		nCells = 10;
 		
+		
 		Board board = new Board(nCells);
 		
 		//Preguntar a usuario por ubicacion de barcos:
@@ -32,25 +34,25 @@ public final class MainController {
 		 	3 barcos de 2 cuadros
 			4 barcos de un solo cuadro
 		*/
-		System.out.println("Nombre de barco que ocupa 4 casillas: ");
-		do {
-			nameShip = scanner.nextLine();
-			if(nameShip.length() == 0) {
-				System.out.println("El nombre del barco no puede estar vacio");
-			}
-		}while(nameShip.length() == 0);
 		
-		System.out.println("Orientacion del barco: " + nameShip + "(0: horizontal, 1:vertical");
+		System.out.println("IA coloca sus barcos");
+		
+		String input;
+
 		do {
-			while(!scanner.hasNextInt()) {
-				System.out.println("Eso no es un numero");
-				scanner.next();
-			}
-			orientation = scanner.nextInt();
-			if(orientation != 0 && orientation != 1) {
-				System.out.println("La orientacion del barco debe ser 0 o 1");
-			}
-		}while(orientation != 0 && orientation != 1);
+			System.out.println("Nombre de barco que ocupa 4 casillas: ");
+			input = scanner.nextLine();
+		}while(!isCorrectShipName(input));
+		nameShip = input;
+		
+		do {
+			System.out.println("Orientacion del barco: " + nameShip + "(0: horizontal, 1:vertical)");
+			input = scanner.nextLine();
+			
+		}while(!isCorrectOrientation(input));
+		orientation = Integer.parseInt(input);
+		
+
 		
 		
 		for(int i = 0; i < 4; i++) {
@@ -80,18 +82,36 @@ public final class MainController {
 			
 			board.setShip(4, nameShip, orientation, x, y);
 		}
-		
-		
 
-		System.out.println("Tablero listo");
-		//mientras no se haya acabado la partida
-		printer.showBoard();
-		System.out.println("Donde quieres disparar?");
-		printer.askX();
-		x = scanner.nextInt();
-		printer.askY();
-		y = scanner.nextInt();
-		System.out.println("Disparando en " + x + ", "+ y);
-		board.shoot(x,y);
+		while(!board.finishGame()) {
+			System.out.println("Tablero listo");
+			//mientras no se haya acabado la partida
+			printer.showBoard();
+			System.out.println("Donde quieres disparar?");
+			printer.askX();
+			x = scanner.nextInt();
+			printer.askY();
+			y = scanner.nextInt();
+			System.out.println("Disparando en " + x + ", "+ y);
+			board.shoot(x,y);
+		}
+	}
+	static boolean isCorrectShipName(String nameShip) {
+		if(nameShip.length() == 0) {
+			return false;
+		}
+		return true;
+	}
+	static boolean isCorrectOrientation(String orientation) {
+		String horizontal, vertical;
+		horizontal = Integer.toString(Constant.SHIP_HORIZONTAL);
+		vertical = Integer.toString(Constant.SHIP_VERTICAL);
+		if(orientation.equals(horizontal)) {
+			return true;
+		}
+		if(orientation.equals(vertical)) {
+			return true;
+		}
+		return false;
 	}
 }

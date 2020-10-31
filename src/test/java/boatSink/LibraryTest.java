@@ -10,8 +10,37 @@ import boatSink.Library;
 import static org.junit.Assert.*;
 
 public class LibraryTest {
-    @Test public void testSomeLibraryMethod() {
-        Library classUnderTest = new Library();
-        assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
+    @Test 
+    public void testShipName() {
+    	
+    	boolean result1 = MainController.isCorrectShipName("");
+        assertFalse(result1);   
+        
+    	boolean result2 = MainController.isCorrectShipName("hola");
+        assertTrue(result2);   
+    }
+    
+    @Test
+    public void testShipOrientation() {
+    	boolean result1 = MainController.isCorrectOrientation("");
+    	assertFalse(result1);
+    	
+    	boolean result2 = MainController.isCorrectOrientation("test");
+    	assertFalse(result2);
+    	
+    	boolean result3 = MainController.isCorrectOrientation("2");
+    	assertFalse(result3);
+    	
+    	boolean result4 = MainController.isCorrectOrientation("-1");
+    	assertFalse(result4);
+    	
+    	boolean result5 = MainController.isCorrectOrientation(Integer.toString(Constant.SHIP_HORIZONTAL));
+    	assertTrue(result5);
+    	
+    	boolean result6 = MainController.isCorrectOrientation(Integer.toString(Constant.SHIP_VERTICAL));
+    	assertTrue(result6);
+    	
+    	boolean result7 = MainController.isCorrectOrientation("test");
+    	assertFalse(result7);
     }
 }
