@@ -5,42 +5,66 @@ package boatSink;
 
 import org.junit.Test;
 
-import boatSink.Library;
-
 import static org.junit.Assert.*;
 
 public class LibraryTest {
     @Test 
-    public void testShipName() {
-    	
-    	boolean result1 = MainController.isCorrectShipName("");
+    public void testPlayerName() {
+    	boolean result1 = MainController.isCorrectPlayerName("");
         assertFalse(result1);   
         
-    	boolean result2 = MainController.isCorrectShipName("hola");
+    	boolean result2 = MainController.isCorrectPlayerName("hola");
         assertTrue(result2);   
     }
     
     @Test
     public void testShipOrientation() {
-    	boolean result1 = MainController.isCorrectOrientation("");
+    	boolean result1 = MainController.isCorrectShipOrientation("");
     	assertFalse(result1);
     	
-    	boolean result2 = MainController.isCorrectOrientation("test");
+    	boolean result2 = MainController.isCorrectShipOrientation("test");
     	assertFalse(result2);
     	
-    	boolean result3 = MainController.isCorrectOrientation("2");
-    	assertFalse(result3);
-    	
-    	boolean result4 = MainController.isCorrectOrientation("-1");
+    	boolean result4 = MainController.isCorrectShipOrientation("-1");
     	assertFalse(result4);
     	
-    	boolean result5 = MainController.isCorrectOrientation(Integer.toString(Constant.SHIP_HORIZONTAL));
+    	boolean result3 = MainController.isCorrectShipOrientation("2");
+    	assertFalse(result3);
+    	
+    	boolean result5 = MainController.isCorrectShipOrientation(Constant.SHIP_HORIZONTAL);
     	assertTrue(result5);
     	
-    	boolean result6 = MainController.isCorrectOrientation(Integer.toString(Constant.SHIP_VERTICAL));
+    	boolean result6 = MainController.isCorrectShipOrientation(Constant.SHIP_VERTICAL);
     	assertTrue(result6);
     	
-    	boolean result7 = MainController.isCorrectOrientation("test");
+    	boolean result7 = MainController.isCorrectShipOrientation("H");
     	assertFalse(result7);
+    	
+    	boolean result8 = MainController.isCorrectShipOrientation("V");
+    	assertFalse(result8);
+    	
+    	boolean result9 = MainController.isCorrectShipOrientation("test");
+    	assertFalse(result9);
+    }
+    
+    @Test
+    public void testShipCoordinate() {
+    	boolean res1 = MainController.isCorrectCoordinate("-1");
+    	assertFalse(res1);
+    	
+    	boolean res2 = MainController.isCorrectCoordinate("0");
+    	assertTrue(res2);
+    	
+    	boolean res3 = MainController.isCorrectCoordinate("1");
+    	assertTrue(res3);
+    	
+    	boolean res4 = MainController.isCorrectCoordinate(Integer.toString(Constant.N_BOARD_ROW_CELLS-1));
+    	assertTrue(res4);
+  
+    	boolean res5 = MainController.isCorrectCoordinate(Integer.toString(Constant.N_BOARD_ROW_CELLS));
+    	assertFalse(res5);
+    	
+    	boolean res7 = MainController.isCorrectCoordinate("test");
+    	assertFalse(res7);
     }
 }

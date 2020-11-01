@@ -1,11 +1,27 @@
 package boatSink;
 
-public class Printer {
 
+/*
+* This class uses Singleton pattern. Represents an unique instance which 
+* can be accessed from any point of source code. 
+* It contains the output messages.
+* */
+public final class Printer {
     /**
      *  Se encarga de printar todo el tablero.
      *  Representa con el simbolo "+" si el barco está hundido o no.
      **/
+	
+	private static Printer printer = null;
+	
+	/* Returns singleton object.*/
+	public static Printer getInstance() {
+	    if (printer == null) {
+	    	printer = new Printer();
+	    }
+	    
+	    return printer;
+	}
 	
 	public void showBoard() {
 		System.out.println("*se muestra tablero*");
