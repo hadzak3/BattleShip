@@ -1,0 +1,132 @@
+@startuml
+
+GameController ..> Printer
+GameController -> "2" Player : creates
+Player --> Board : contains
+Board --> "18" Cell : contains
+Cell --> "0..1" Ship
+Ship --> "0..4" Cell
+Board --> "4" Ship : contains
+
+class Board {
+	- nCols : int
+	- nRows : int  
+	- cells : Cell	
+	- ships : ArrayList<Ship>
+	
+	Board(nRows : int, nCols : int, nPlayers : int) 
+	- setAllCellsWater() : void 
+	# setShip(shipSize: int, orientation : String, x : int , y: int) : void
+	# shoot(int x, int y) : void 
+	# isEndGame() : boolean  
+	+ toString() : String  
+}
+
+class Cell {
+	-x : int
+	-y : int
+	-ship : Ship
+  
+	Cell(x : int, y : int, ship : Ship)
+	+ setX(int x) : void
+	+ setY(int y) : void
+	+ setShip(Ship ship) : void
+	+ getX() : int
+	+ getY() : int
+	+ getShip() : Ship
+	+ shootShip() : void 
+	+ isShip() : boolean 
+	+ shootShip() : void 
+	+ isShipDown() : boolean 
+	+ toString() : String
+}
+
+class Constant {
+	+ {static} final N_BOARD_ROW_CELLS : int 
+	+ {static} final PLAYERS_COUNT : int
+	+ {static} final N_SHIPS : int
+	+ {static} final SHIP_HORIZONTAL : String
+	+ {static} final SHIP_VERTICAL : String
+	+ {static} final ONE_CELL_SHIPS : int
+	+ {static} final TWO_CELL_SHIPS : int
+	+ {static} final THREE_CELL_SHIPS : int
+	+ {static} final FOUR_CELL_SHIPS : int
+}
+
+class GameController {	
+	- {static} board : Board
+	- {static} playersCount : int
+	- {static} players : ArrayList<Player>
+	- {static} scanner : Scanner
+	- {static} input : String
+	
+	+ {static} main(args : String[]) : void
+	+ {static} playOneGame(playersCount : int) : void 
+	+ {static} initializeGame() : void  
+	+ {static} createPlayersAndShips() : void
+	+ {static} createShips(nShipCells : int) : void
+	+ {static} makePlay(currentPlayerId : int) : void
+	+ {static} endOfGame() : boolean 
+	+ {static} printWinner(nextPlayerId : int) : void
+	+ {static} isCorrectShipOrientation(shipOrientation : String) boolean
+	+ {static} isCorrectCoordinate(coordinate : String) : boolean 
+	+ {static} isCorrectPlayerName(playerName : String) : boolean
+}
+
+class Player {
+	-name : String
+	-board : Board
+	
+	Player(name : String, board : Board)
+	+ getName() : String
+	+ getBoard() : Board
+	+ shoot(x : int, y : int)  : void
+}
+
+class Printer  {
+	- {static} printer : Printer
+	
+	+ {static} getInstance() : Printer
+}
+
+class Ship {
+	- cells : ArrayList<Cell>
+	- isDown : boolean 
+	- health : int
+	
+	Ship(shipSize : int)
+	+ addCell(c : Cell) : void 
+	+ isDown() : boolean 
+	+ isSunk() : boolean 
+	+ shoot : void  
+}
+
+class OneCellShip extends Ship {
+	- {static} HEALTH : int 
+	
+	OneCellShip()
+	OneCellShip(Cell cell)
+}
+
+class TwoCellShip extends Ship {
+	- {static} HEALTH : int 
+	
+	TwoCellShip()
+	TwoCellShip(cells : ArrayList<Cell>)
+}
+
+class ThreeCellShip extends Ship {
+	- {static} HEALTH : int 
+	
+	ThreeCellShip()
+	ThreeCellShip(cells : ArrayList<Cell>)
+}
+
+class FourCellShip extends Ship {
+	- {static} HEALTH : int 
+	
+	FourCellShip()
+	FourCellShip(cells : ArrayList<Cell>)
+}
+
+@enduml

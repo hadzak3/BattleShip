@@ -4,58 +4,34 @@ import java.util.ArrayList;
 
 public class Board {
 
+	private int nRows, nCols;
 	private Cell cells[][];
-	private int boardSize;
-	private ArrayList<Player> players;
+	private ArrayList<Ship> ships;
 	
-	//private ArrayList<Ship> shipPlayer1;
-	//private ArrayList<Ship> shipIA;
-	
-	/**
-	 *  comprueba si es agua o tocado:
- 	 *  si es tocado comprueba si se ha hundido el barco
- 	 *  
-	 * @param x
-	 * @param y
-	 */
-	
-	Board (int nCells, int nPlayers) {
-		players = new ArrayList<>(nPlayers);
-		boardSize = nCells;
-		cells = new Cell[boardSize][boardSize];
+	Board (int nRows, int nCols) {
+		this.nRows = nRows; 
+		this.nCols = nCols; 
+		this.cells = new Cell[nRows][nCols];
+		this.ships = new ArrayList<>();
 		setAllCellsWater();
 	}
 	
 	private void setAllCellsWater() {
-		for(int i = 0; i < boardSize; i++) {
-			for(int j = 0; j < boardSize; j++) {
+		for(int i = 0; i < nRows; i++) {
+			for(int j = 0; j < nCols; j++) {
 				this.cells[i][j] = new Cell(i, j, null);
 			}
 		}
 	}
 	
-	public void setShip(int playerId, int shipSize, String orientation, int x, int y) {
-		assert (players.size() >= playerId + 1) : "player with id " + playerId + " not added.";
-		
+	protected void addShip(int x, int y, Ship ship) {
 		System.out.println("Seteando parte del barco en la posicion: (" +  x + ", "+ y +")");
-		
-		Ship ship = new Ship(shipSize, orientation, playerId);
 		cells[x][y].setShip(ship);
-		players.get(playerId).addShip(cells[x][y]);
-		
 		System.out.println("Barco insertado correctamente");
 	}
 	
-	public void addPlayer(Player player) {
-		players.add(player);
-	}
-	
-	public String getPlayerNameById(int playerId) {
-		return players.get(playerId).getName();
-	}
-	
-	public void shoot(int playerId, int x, int y) {
-		// TODO: debe disparar sobre el tablero del otro jugador.
+	/* Comprueba si se ha tocado un barco o es agua, y si es un barco dispara en el. */
+	protected void shoot(int x, int y) {
 		if(cells[x][y].isShip()) {
 			cells[x][y].shootShip();
 		}
@@ -64,19 +40,15 @@ public class Board {
 		}
 	}
 	
-	public boolean isEndGame() {
-		// TODO: Debe comprobar si los barcos del otro jugador están hundidos.
-		for(int i = 0; i < boardSize; i++) {
-			for(int j = 0; j < boardSize; j++) {
-				if(cells[i][j].isShip()) {
-					if(!cells[i][j].isShipDown()) {
-						return false;
-					}
-				}
+	protected boolean isEndGame() {
+		boolean isEndGame = true;
+		for (Ship ship : ships) {
+			if (ship.isSunk()) {
+				isEndGame = false;
 			}
 		}
 		
-		return true;
+		return isEndGame;
 	}
 	
 	@Override

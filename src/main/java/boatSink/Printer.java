@@ -47,6 +47,4 @@ public final class Printer {
 	public void askOrientationShip() {
 		System.out.println("Introduce la orientacion del barco 0: horizontal, 1: vertial");
 	}
-   
-
 }

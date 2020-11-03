@@ -1,22 +1,24 @@
 package boatSink;
 
-import java.util.ArrayList;
-
 public class Player {
 
 	private String name;
-	private ArrayList<Cell> shipCells;
+	private Board board;
 	
-	Player(String name) {
+	Player(String name, Board board) {
 		this.name = name;
-		this.shipCells = new ArrayList<>();
+		this.board = board;
 	}
 	
 	public String getName() {
 		return this.name;
 	}
-
-	public void addShip(Cell shipCell) {
-		this.shipCells.add(shipCell);
+	
+	public Board getBoard() {
+		return this.board;
+	}
+	
+	public void shoot (int x , int y) {
+		this.board.shoot(x, y);
 	}
 }
