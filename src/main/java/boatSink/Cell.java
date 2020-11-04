@@ -38,19 +38,23 @@ public class Cell {
 		return this.ship != null;
 	}
 	
-	public void shootShip() {
-		this.ship.shoot();
+	public void shootShip(int x, int y) {
+		if (this.ship.isDown(x, y)) {
+			System.out.println("Barco tocado previamente.");
+		} else {
+			this.ship.shoot(x, y);
+		}
 	}
 	
-	public boolean isShipDown() {
-		return this.ship.isDown();
+	public boolean isShipDown(int x, int y) {
+		return this.ship.isDown(x, y);
 	}
 	
 	@Override
 	public String toString() {
 		String out = "-"; // Water
 		if (this.ship != null) {
-			out = "s"; // ship
+			out = Integer.toString(this.ship.getHealth()); // ship
 			if (this.ship.isSunk()) {
 				out = "+"; // Sunk
 			}

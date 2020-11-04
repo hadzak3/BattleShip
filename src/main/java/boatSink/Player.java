@@ -3,11 +3,24 @@ package boatSink;
 public class Player {
 
 	private String name;
-	private Board board;
+	private Board shipsBoard;
+	private String shootsBoard[][];
+	/* crear tablero que guarde los disparos del jugador */
 	
 	Player(String name, Board board) {
 		this.name = name;
-		this.board = board;
+		this.shipsBoard = board;
+		this.shootsBoard = new String[Constants.N_BOARD_ROWS_CELLS][Constants.N_BOARD_ROWS_CELLS];
+		setAllShootsBoardWater();
+	}
+	
+	private void setAllShootsBoardWater() {
+		// TODO create attributes nRows and nCols to get by constructor
+		for(int i = 0; i <= Constants.N_BOARD_ROWS_CELLS - 1; i++) {
+			for(int j = 0; j <= Constants.N_BOARD_ROWS_CELLS - 1; j++) {
+				this.shootsBoard[i][j] = "-"; // means water cell
+			}
+		}
 	}
 	
 	public String getName() {
@@ -15,10 +28,49 @@ public class Player {
 	}
 	
 	public Board getBoard() {
-		return this.board;
+		return this.shipsBoard;
 	}
 	
-	public void shoot (int x , int y) {
-		this.board.shoot(x, y);
+	public boolean isEndGame() {
+		return this.shipsBoard.isEndGame();
+	}
+	
+	/* Returns true if ship is down at given coordinates. */ 
+	public boolean shoot(int x , int y) {
+		/* TODO Si el barco está hundido debería de ponerle un + al tablero de disparos en todas sus casillas. */
+		boolean isDown = this.shipsBoard.shoot(x, y);
+		if (isDown) {
+			shootsBoard[x][y] = "o";
+		} else {
+			shootsBoard[x][y] = "x";
+		}
+
+		return (isDown);
+	}
+	
+	@Override
+	public String toString() {
+		int x;
+		// first prints column numbers
+		for (x = 0; x <= Constants.N_BOARD_ROWS_CELLS - 1; x++) {
+			if (x == 0) {
+				System.out.printf("%4s", x);
+			} else {
+				System.out.printf("%3s", x);
+			}
+		}
+		
+		System.out.println("");
+		
+		/* Board */
+		for (x = 0; x <= Constants.N_BOARD_ROWS_CELLS - 1; x++) {
+			System.out.printf("%-3s", x); //  rows number every at every row start
+			for (int y = 0; y <= Constants.N_BOARD_ROWS_CELLS - 1; y++) {
+				System.out.printf("%-2s ", this.shootsBoard[x][y]);
+			}
+			System.out.println("");
+		}
+	
+		return "";
 	}
 }

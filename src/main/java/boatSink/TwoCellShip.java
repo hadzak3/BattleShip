@@ -4,16 +4,11 @@ import java.util.ArrayList;
 
 public class TwoCellShip extends Ship {
 	
+	private static String NAME = "TwoCell";
 	private static int HEALTH = 2;
 	
 	TwoCellShip() {
-		super(HEALTH);
+		super(NAME, HEALTH);
 	}
-	
-	TwoCellShip(ArrayList<Cell> cells) {
-		super(HEALTH);
-		for (Cell cell : cells) {
-			this.addCell(cell);
-		}
-	}
+
 }
