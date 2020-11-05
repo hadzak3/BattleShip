@@ -67,4 +67,10 @@ public class GameControllerTest {
     	boolean res7 = GameController.isCorrectCoordinate("test");
     	assertFalse(res7);
     }
+    
+    @Test 
+    public void testEndOfGame() {
+    	GameController g;
+    	boolean res1 = GameController.endOfGame();
+    }
 }

@@ -1,5 +1,6 @@
 package boatSink;
 
+import java.util.concurrent.TimeUnit;
 
 /*
 * This class uses Singleton pattern. Represents an unique instance which 
@@ -22,6 +23,8 @@ public final class Printer {
 	    
 	    return printer;
 	}
+
+
 	
 	public void showBoard() {
 		System.out.println("*se muestra tablero*");

@@ -5,10 +5,18 @@ public class Cell {
 	private int x, y;
 	private Ship ship = null;
 	
+	
 	Cell(int x, int y, Ship ship){
+		//Comprobamos si la x es negativa o superior al tamaño del tablero
+		if(x < 0 || x >= Constants.N_BOARD_ROWS_CELLS || y < 0 || y >= Constants.N_BOARD_ROWS_CELLS) {
+			throw new IllegalArgumentException();
+		}
 		this.x = x;
 		this.y = y;
 		this.ship = ship;
+	}
+	Cell(){
+		
 	}
 	public void setX(int x) {
 		this.x = x;

@@ -9,7 +9,10 @@ public class Board {
 	private ArrayList<Ship> ships;
 	
 	Board (int nRows, int nCols) {
-		this.nRows = nRows; 
+		if(nRows != Constants.N_BOARD_ROWS_CELLS || nCols != Constants.N_BOARD_ROWS_CELLS) {
+			throw new IllegalArgumentException();
+		}
+		this.nRows = nRows;
 		this.nCols = nCols; 
 		this.cells = new Cell[nRows][nCols];
 		this.ships = new ArrayList<>();

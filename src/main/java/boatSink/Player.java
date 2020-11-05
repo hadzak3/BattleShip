@@ -37,7 +37,6 @@ public class Player {
 	
 	/* Returns true if ship is down at given coordinates. */ 
 	public boolean shoot(int x , int y) {
-		/* TODO Si el barco está hundido debería de ponerle un + al tablero de disparos en todas sus casillas. */
 		boolean isDown = this.shipsBoard.shoot(x, y);
 		if (isDown) {
 			shootsBoard[x][y] = "o";
