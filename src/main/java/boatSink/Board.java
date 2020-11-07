@@ -31,7 +31,6 @@ public class Board {
 		}
 	}
 	
-	/* TODO Revisar caso que el jugador dispara en en un barco contiguo pero muestra tocado en. */
 	protected boolean createShip(int x0, int y0, String orientation, Ship ship) {	
 		boolean isCreated = false;
 		
@@ -122,7 +121,75 @@ public class Board {
 		
 		return isCreated;
 	}
-
+	
+	/* TODO 
+	protected boolean createShipRefactor(int x0, int y0, String orientation, Ship ship) {	
+		boolean isCreated = false;
+		
+		if (this.isShipCell(x0, y0)) {
+			System.out.println("Ya hay un barco en las coordenadas proporcionadas.");
+		} else {
+			int incrX=0;
+			int incrY=0;
+			if (orientation.equals(Constants.SHIP_HORIZONTAL)) {
+				incrX=1;
+				incrY=0;
+			} else if (orientation.equals(Constants.SHIP_VERTICAL)) {
+				incrX=0;
+				incrY=1;
+			} else {
+				throw new IllegalArgumentException("Orientation not implemented: " + orientation);
+			}
+			
+			int nCells = ship.getNCells();
+			int xPointer = x0, yPointer = y0;
+			int i;
+			for(i = 0; i < nCells && !this.isShipCell(xPointer, yPointer); ++i)
+			{
+				xPointer += incrX;
+				yPointer += incrY;
+			}
+			
+			if (i == nCells) {
+				xPointer = x0;
+				yPointer = y0;
+				for(i = 0; i < nCells; ++i)
+				{
+					xPointer += incrX;
+					yPointer += incrY;
+					cells[xPointer][yPointer].setShip(ship);
+				}
+				isCreated = true;
+			} else {
+				xPointer = x0;
+				yPointer = y0;
+				for(i = 0; i < nCells && !this.isShipCell(xPointer, yPointer); ++i)
+				{
+					xPointer -= incrX;
+					yPointer -= incrY;
+				}
+				
+				if (i == nCells) { 
+					for(i = 0; i < nCells; ++i)
+					{
+						xPointer -= incrX;
+						yPointer -= incrY;
+						cells[xPointer][yPointer].setShip(ship);
+					}
+					isCreated = true;
+				}
+			}
+		}
+		
+		if (isCreated) {
+			System.out.println("Barco creado correctamente.");
+			ships.add(ship);
+		} else {
+			System.out.println("No se ha podido crear el barco en las coordenadas fijadas. Prueba con datos nuevos.");
+		}
+		
+		return isCreated;
+	}*/
 	
 	protected boolean shoot(int x, int y) {
 		boolean isDown = false;

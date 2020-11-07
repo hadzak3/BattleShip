@@ -5,7 +5,6 @@ public class Player {
 	private String name;
 	private Board shipsBoard;
 	private String shootsBoard[][];
-	/* crear tablero que guarde los disparos del jugador */
 	
 	Player(String name, Board board) {
 		this.name = name;
@@ -18,7 +17,7 @@ public class Player {
 		// TODO create attributes nRows and nCols to get by constructor
 		for(int i = 0; i <= Constants.N_BOARD_ROWS_CELLS - 1; i++) {
 			for(int j = 0; j <= Constants.N_BOARD_ROWS_CELLS - 1; j++) {
-				this.shootsBoard[i][j] = "-"; // means water cell
+				this.shootsBoard[i][j] = "-"; // means water
 			}
 		}
 	}
@@ -49,9 +48,8 @@ public class Player {
 	
 	@Override
 	public String toString() {
-		int x;
-		// first prints column numbers
-		for (x = 0; x <= Constants.N_BOARD_ROWS_CELLS - 1; x++) {
+		/* prints column numbers. */
+		for (int x = 0; x <= Constants.N_BOARD_ROWS_CELLS - 1; x++) {
 			if (x == 0) {
 				System.out.printf("%4s", x);
 			} else {
@@ -62,8 +60,8 @@ public class Player {
 		System.out.println("");
 		
 		/* Board */
-		for (x = 0; x <= Constants.N_BOARD_ROWS_CELLS - 1; x++) {
-			System.out.printf("%-3s", x); //  rows number every at every row start
+		for (int x = 0; x <= Constants.N_BOARD_ROWS_CELLS - 1; x++) {
+			System.out.printf("%-3s", x); // prints row numbers every row start
 			for (int y = 0; y <= Constants.N_BOARD_ROWS_CELLS - 1; y++) {
 				System.out.printf("%-2s ", this.shootsBoard[x][y]);
 			}

@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-import boatSink.Ship;
-
 
 /* TODO: First create players ships, and then add ships to players boards. */
 public final class GameController {
@@ -29,10 +27,14 @@ public final class GameController {
 	public static void playOneGame(int playersCount) {
 		initializeGame();
 		int j = 0;
+		boolean isShipDown = false;
 		while (!endOfGame()) {
-			if (!makePlay(j)) { /* If ship is down keep same player id. */
+			isShipDown = makePlay(j);
+			if (!isShipDown) {
 				j = (j + 1) % playersCount;
-			} 
+				waitBetweenChangingPlayerTurn();
+			}
+			
 		}
 		printWinner(j);
 	}
@@ -49,7 +51,7 @@ public final class GameController {
 		
 		for (int j = 0; j < playersCount; j++) { 
 			do {
-				System.out.println("Introduce el nombre del jugador número " + (j + 1));
+				System.out.println("\nIntroduce el nombre del jugador número " + (j + 1));
 				input = scanner.nextLine();
 			} while (!isCorrectPlayerName(input));
 			playerName = input;
@@ -88,18 +90,8 @@ public final class GameController {
 			Player player = new Player(playerName, board);
 			players.add(player);
 			System.out.println(player.getBoard());
-			System.out.println("Cambiando turno en ");
-			try {
-				for(int i = 3; i > 0; i--) {
-					System.out.println(i + " seconds...");
-					TimeUnit.SECONDS.sleep(1);
-				}
-			}
-			catch(InterruptedException ex)
-			{
-			    Thread.currentThread().interrupt();
-			}
-
+			
+			waitBetweenChangingPlayerTurn();
 		}
 	}	
 	
@@ -109,12 +101,9 @@ public final class GameController {
 		int oponentPlayerID = (currentPlayerId + 1) % playersCount;
 		Player oponentPlayer = players.get(oponentPlayerID);
 		
-		//System.out.println("Tablero del jugador: " + oponentPlayer.getName());
-		//System.out.println(oponentPlayer);
-		
 		String playerName = currentPlayer.getName();
 		
-		System.out.println("Tablero de " + currentPlayer.getName());
+		System.out.println("\nTablero de " + currentPlayer.getName());
 		System.out.println(oponentPlayer);
 		do {
 			System.out.println(playerName + ", introduce la coordenada x de donde quieras disparar al jugador " + oponentPlayer.getName()+  "(0-9)");
@@ -130,24 +119,23 @@ public final class GameController {
 
 		System.out.println("Disparando en " + x + ", "+ y);
 		
-		/* TODO Revisar caso que el jugador dispara en en un barco contiguo pero muestra tocado en [0,0]. */
 		Boolean isDown = oponentPlayer.shoot(x, y);
 		
-		//If the shoot its water, change player
-		if(!isDown) {
-			System.out.println("Cambiando turno en ");
-			try {
-				for(int i = 3; i > 0; i--) {
-					System.out.println(i + " seconds...");
-					TimeUnit.SECONDS.sleep(1);
-				}
-			}
-			catch(InterruptedException ex)
-			{
-			    Thread.currentThread().interrupt();
+		return isDown;
+	}
+	
+	public static void waitBetweenChangingPlayerTurn() {
+		System.out.println("Cambiando turno en ");
+		try {
+			for(int i = 3; i > 0; i--) {
+				System.out.println(i + " seconds...");
+				TimeUnit.SECONDS.sleep(1);
 			}
 		}
-		return isDown;
+		catch(InterruptedException ex)
+		{
+		    Thread.currentThread().interrupt();
+		}
 	}
 	
 	public static boolean endOfGame() {
