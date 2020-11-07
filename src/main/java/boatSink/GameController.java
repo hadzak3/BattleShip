@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
-/* TODO: First create players ships, and then add ships to players boards. */
 public final class GameController {
 	
 	private static int playersCount = Constants.N_PLAYERS;
@@ -12,14 +11,6 @@ public final class GameController {
 	private static String input;
 	private static Scanner scanner = new Scanner(System.in);
 	
-	/** 
-	 * Método inicial del juego:
-	 *  1. manda a crear el tablero
-	 *  2. mientras la partida no ha finalizado:
-	 *  	2a. pide al usuario las coordendas
-     *   	2b. dispara en la coordenadas introducidas
-     *   	2c. imprime el estado del tablero 
-	 **/
 	public static void main(String[] args) {	
 		playOneGame(playersCount);
 	}
@@ -27,14 +18,8 @@ public final class GameController {
 	public static void playOneGame(int playersCount) {
 		initializeGame();
 		int j = 0;
-		boolean isShipDown = false;
 		while (!endOfGame()) {
-			isShipDown = makePlay(j);
-			if (!isShipDown) {
-				j = (j + 1) % playersCount;
-				waitBetweenChangingPlayerTurn();
-			}
-			
+			j = makePlay(j);
 		}
 		printWinner(j);
 	}
@@ -76,13 +61,13 @@ public final class GameController {
 					do {
 						System.out.println(playerName +  ", introduce la coordenada x del barco de " + (i + 1) + " casillas (0-9)");
 						input = scanner.nextLine();
-					} while (!isCorrectCoordinate(input)); 
+					} while (!isCorrectInputCoordinate(input)); 
 					x = Integer.parseInt(input);
 					
 					do {
 						System.out.println(playerName + ", introduce la coordenada y del barco de " + (i + 1) + " casillas (0-9)");
 						input = scanner.nextLine();
-					} while (!isCorrectCoordinate(input));
+					} while (!isCorrectInputCoordinate(input));
 					y = Integer.parseInt(input);
 				} while (!board.createShip(x, y, shipOrientation, gameShips.get(i))); /* Tries to create ship cells in given coordinates. */
 			}
@@ -95,33 +80,42 @@ public final class GameController {
 		}
 	}	
 	
-	public static boolean makePlay(int currentPlayerId) {
+	public static int makePlay(int currentPlayerId) {
 		Player currentPlayer = players.get(currentPlayerId);
 		
-		int oponentPlayerID = (currentPlayerId + 1) % playersCount;
-		Player oponentPlayer = players.get(oponentPlayerID);
+		int oponentPlayerId = (currentPlayerId + 1) % playersCount;
+		Player oponentPlayer = players.get(oponentPlayerId);
 		
-		String playerName = currentPlayer.getName();
-		
-		System.out.println("\nTablero de " + currentPlayer.getName());
+		System.out.println("\nTablero de disparos de " + currentPlayer.getName());
 		System.out.println(oponentPlayer);
+		
 		do {
-			System.out.println(playerName + ", introduce la coordenada x de donde quieras disparar al jugador " + oponentPlayer.getName()+  "(0-9)");
+			System.out.println(currentPlayer.getName() + ", introduce la coordenada x (0-9) de donde quieras disparar al jugador " 
+					+ oponentPlayer.getName());
 			input = scanner.nextLine();
-		} while (!isCorrectCoordinate(input));
+		} while (!isCorrectInputCoordinate(input));
 		int x = Integer.parseInt(input);
 		
 		do {
-			System.out.println(playerName + ", introduce la coordenada y de donde quieras disparar al jugador " + oponentPlayer.getName()+  "(0-9)");
+			System.out.println(currentPlayer.getName() + ", introduce la coordenada y  (0-9) de donde quieras disparar al jugador " 
+					+ oponentPlayer.getName());
 			input = scanner.nextLine();
-		} while (!isCorrectCoordinate(input)); 
+		} while (!isCorrectInputCoordinate(input)); 
 		int y = Integer.parseInt(input);
 
 		System.out.println("Disparando en " + x + ", "+ y);
+		boolean isDown = oponentPlayer.shoot(x, y);
 		
-		Boolean isDown = oponentPlayer.shoot(x, y);
+		int nextPlayerIdToPlay = currentPlayerId; 
+		/* The player's turn changes only if the current player has not shoot down a ship. */
+		if (!isDown) { 
+			nextPlayerIdToPlay = oponentPlayerId;
+			System.out.println("Tablero de disparos de " + currentPlayer.getName());
+			System.out.println(oponentPlayer);
+			waitBetweenChangingPlayerTurn();
+		}
 		
-		return isDown;
+		return nextPlayerIdToPlay;
 	}
 	
 	public static void waitBetweenChangingPlayerTurn() {
@@ -146,28 +140,25 @@ public final class GameController {
 			if (!players.get(j).isEndGame()) {
 				isTheEnd = false;
 			}
-			else {
-				isTheEnd = true;
-				break;
-			}
 		}
 	
 		return isTheEnd;
 	}
 	
-	public static void printWinner(int nextPlayerId) {
-		System.out.println("El ganador es " + players.get(nextPlayerId).getName());
+	public static void printWinner(int playerId) {
+		Player winner = players.get(playerId);
+		System.out.println("El ganador es " + winner.getName());
 	}
 	
 	public static boolean isCorrectShipOrientation(String shipOrientation) {		
 		return (shipOrientation.equals(Constants.SHIP_VERTICAL) || shipOrientation.equals(Constants.SHIP_HORIZONTAL));
 	}
 	
-	public static boolean isCorrectCoordinate(String coordinate) {
+	public static boolean isCorrectInputCoordinate(String coordinate) {
 		int coord;
-		try { 
+		try {
 			coord = Integer.parseInt(coordinate);
-	    } catch (Exception e) { // the coordinate cannot be casted to an integer.
+	    } catch (Exception e) {
 	    	return false;
 	    }
 		

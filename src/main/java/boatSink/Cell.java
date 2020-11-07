@@ -5,9 +5,7 @@ public class Cell {
 	private int x, y;
 	private Ship ship = null;
 	
-	
 	Cell(int x, int y, Ship ship){
-		//Comprobamos si la x es negativa o superior al tamaño del tablero
 		if(x < 0 || x >= Constants.N_BOARD_ROWS_CELLS || y < 0 || y >= Constants.N_BOARD_ROWS_CELLS) {
 			throw new IllegalArgumentException();
 		}
@@ -15,9 +13,11 @@ public class Cell {
 		this.y = y;
 		this.ship = ship;
 	}
+	
 	Cell(){
 		
 	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -42,20 +42,27 @@ public class Cell {
 		return this.ship;
 	}
 	
-	public boolean isShip() {	
-		return this.ship != null;
+	public boolean isShip(int x, int y) {	
+		return (this.ship != null && this.x == x && this.y == y);
 	}
 	
 	public void shootShip(int x, int y) {
-		if (this.ship.isDown(x, y)) {
-			System.out.println("Barco tocado previamente.");
-		} else {
-			this.ship.shoot(x, y);
+		if (this.isShip(x, y)) { 
+			if (this.ship.isDown(x, y)) {
+				System.out.println("Barco tocado previamente.");
+			} else {
+				this.ship.shoot(x, y);
+			}
 		}
 	}
 	
 	public boolean isShipDown(int x, int y) {
-		return this.ship.isDown(x, y);
+		boolean isShipDown = false;
+		if (this.isShip(x, y)) {
+			isShipDown = this.ship.isDown(x, y);
+		}
+		
+		return isShipDown;
 	}
 	
 	@Override

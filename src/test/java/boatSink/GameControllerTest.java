@@ -49,28 +49,29 @@ public class GameControllerTest {
     
     @Test
     public void testShipCoordinate() {
-    	boolean res1 = GameController.isCorrectCoordinate("-1");
+    	boolean res1 = GameController.isCorrectInputCoordinate("-1");
     	assertFalse(res1);
     	
-    	boolean res2 = GameController.isCorrectCoordinate("0");
+    	boolean res2 = GameController.isCorrectInputCoordinate("0");
     	assertTrue(res2);
     	
-    	boolean res3 = GameController.isCorrectCoordinate("1");
+    	boolean res3 = GameController.isCorrectInputCoordinate("1");
     	assertTrue(res3);
     	
-    	boolean res4 = GameController.isCorrectCoordinate(Integer.toString(Constants.N_BOARD_ROWS_CELLS-1));
+    	boolean res4 = GameController.isCorrectInputCoordinate(Integer.toString(Constants.N_BOARD_ROWS_CELLS-1));
     	assertTrue(res4);
   
-    	boolean res5 = GameController.isCorrectCoordinate(Integer.toString(Constants.N_BOARD_ROWS_CELLS));
+    	boolean res5 = GameController.isCorrectInputCoordinate(Integer.toString(Constants.N_BOARD_ROWS_CELLS));
     	assertFalse(res5);
     	
-    	boolean res7 = GameController.isCorrectCoordinate("test");
+    	boolean res7 = GameController.isCorrectInputCoordinate("test");
     	assertFalse(res7);
     }
     
     @Test 
     public void testEndOfGame() {
-    	GameController g;
-    	boolean res1 = GameController.endOfGame();
+    	/* TODO */
+    	//GameController g;
+    	//boolean res1 = GameController.endOfGame();
     }
 }

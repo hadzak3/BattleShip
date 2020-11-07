@@ -1,7 +1,5 @@
 package boatSink;
 
-import java.util.concurrent.TimeUnit;
-
 /*
 * This class uses Singleton pattern. Represents an unique instance which 
 * can be accessed from any point of source code. 
