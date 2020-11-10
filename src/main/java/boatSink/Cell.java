@@ -3,7 +3,7 @@ package boatSink;
 public class Cell {
 
 	private int x, y;
-	private Ship ship = null;
+	private Ship ship;
 	
 	Cell(int x, int y, Ship ship){
 		if(x < 0 || x >= Constants.N_BOARD_ROWS_CELLS || y < 0 || y >= Constants.N_BOARD_ROWS_CELLS) {
@@ -12,26 +12,6 @@ public class Cell {
 		this.x = x;
 		this.y = y;
 		this.ship = ship;
-	}
-	
-	Cell(){
-		
-	}
-	
-	public void setX(int x) {
-		this.x = x;
-	}
-	 
-	public int getX() {
-		return this.x;
-	}
-	
-	public void setY(int y) {
-		this.y = y;
-	}
-	
-	public int getY() {
-		return this.y;
 	}
 	 
 	public void setShip(Ship ship) {

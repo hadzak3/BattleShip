@@ -132,7 +132,9 @@ public class CellTest {
 		// doesn't matter which type of ship we instantiate, test output is the same.
 		Ship ship = new OneCellShip();
 		
+		
 		/* test case 1. */
+		ship.setDown(0, 0);
 		cell = new Cell(0, 0, ship);
 		cell.shootShip(0, 0);
 		assertTrue(cell.getShip().isDown(0, 0));
@@ -141,7 +143,11 @@ public class CellTest {
 		
 		/* test case 2. */
 		cell = new Cell(5, 5, ship);
-		cell.shootShip(4, 4);
-		assertFalse(cell.getShip().isDown(5, 5));
+		cell.shootShip(5, 5);
+		assertTrue(cell.getShip().isDown(5, 5));
+		
+		/* test case 3. */
+		cell.shootShip(-1, -1);
+		assertFalse(cell.getShip().isDown(-1, -1));
 	}
 }

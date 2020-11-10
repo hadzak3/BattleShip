@@ -5,128 +5,134 @@ GameController -> "2" Player : creates
 Player --> Board : contains
 Board --> "18" Cell : contains
 Cell --> "0..1" Ship
-Ship --> "0..4" Cell
-Board --> "4" Ship : contains
+Board --> "4" Ship : contains   
 
-class Board {
-	- nCols : int
-	- nRows : int  
-	- cells : Cell	
-	- ships : ArrayList<Ship>
+
+class Board [[java:boatSink.Board]] {
+	-int nRows
+	-int nCols
+	-Cell[][] cells
+	-ArrayList<Ship> ships
 	
-	Board(nRows : int, nCols : int, nPlayers : int) 
-	- setAllCellsWater() : void 
-	# setShip(shipSize: int, orientation : String, x : int , y: int) : void
-	# shoot(int x, int y) : void 
-	# isEndGame() : boolean  
-	+ toString() : String  
+	~Board(int nRows, int nCols)
+	-void setAllCellsWater()
+	#boolean createShip(int x0, int y0, String orientation, Ship ship)
+	#boolean isShipCell(int x, int y)
+	#boolean shoot(int x, int y)
+	#boolean isEndGame()
+	+String toString()
 }
 
-class Cell {
-	-x : int
-	-y : int
-	-ship : Ship
-  
-	Cell(x : int, y : int, ship : Ship)
-	+ setX(int x) : void
-	+ setY(int y) : void
-	+ setShip(Ship ship) : void
-	+ getX() : int
-	+ getY() : int
-	+ getShip() : Ship
-	+ shootShip() : void 
-	+ isShip() : boolean 
-	+ shootShip() : void 
-	+ isShipDown() : boolean 
-	+ toString() : String
-}
-
-class Constant {
-	+ {static} final N_BOARD_ROW_CELLS : int 
-	+ {static} final PLAYERS_COUNT : int
-	+ {static} final N_SHIPS : int
-	+ {static} final SHIP_HORIZONTAL : String
-	+ {static} final SHIP_VERTICAL : String
-	+ {static} final ONE_CELL_SHIPS : int
-	+ {static} final TWO_CELL_SHIPS : int
-	+ {static} final THREE_CELL_SHIPS : int
-	+ {static} final FOUR_CELL_SHIPS : int
-}
-
-class GameController {	
-	- {static} board : Board
-	- {static} playersCount : int
-	- {static} players : ArrayList<Player>
-	- {static} scanner : Scanner
-	- {static} input : String
+class Cell [[java:boatSink.Cell]] {
+	-int x
+	-int y
+	-Ship ship
 	
-	+ {static} main(args : String[]) : void
-	+ {static} playOneGame(playersCount : int) : void 
-	+ {static} initializeGame() : void  
-	+ {static} createPlayersAndShips() : void
-	+ {static} createShips(nShipCells : int) : void
-	+ {static} makePlay(currentPlayerId : int) : void
-	+ {static} endOfGame() : boolean 
-	+ {static} printWinner(nextPlayerId : int) : void
-	+ {static} isCorrectShipOrientation(shipOrientation : String) boolean
-	+ {static} isCorrectCoordinate(coordinate : String) : boolean 
-	+ {static} isCorrectPlayerName(playerName : String) : boolean
+	~Cell(int x, int y, Ship ship)
+	+void setShip(Ship ship)
+	+Ship getShip()
+	+boolean isShip(int x, int y)
+	+void shootShip(int x, int y)
+	+boolean isShipDown(int x, int y)
+	+String toString()
 }
 
-class Player {
-	-name : String
-	-board : Board
-	
-	Player(name : String, board : Board)
-	+ getName() : String
-	+ getBoard() : Board
-	+ shoot(x : int, y : int)  : void
+class Constants [[java:boatSink.Constants]] {
+	+{static} N_BOARD_ROWS_CELLS :int
+	+{static}int N_PLAYERS
+	+{static}String SHIP_HORIZONTAL
+	+{static}String SHIP_VERTICAL
 }
 
-class Printer  {
-	- {static} printer : Printer
+class GameController [[java:boatSink.GameController]] {
+	-{static}int playersCount
+	-{static}ArrayList<Player> players
+	-{static}String input
+	-{static}Scanner scanner
 	
-	+ {static} getInstance() : Printer
+	+{static}void main(String[] args)
+	+{static}void playOneGame(int playersCount)
+	+{static}void initializeGame()
+	+{static}int makePlay(int currentPlayerId)
+	+{static}void waitBetweenChangingPlayerTurn()
+	+{static}boolean endOfGame()
+	+{static}void printWinner(int playerId)
+	+{static}boolean isCorrectShipOrientation(String shipOrientation)
+	+{static}boolean isCorrectInputCoordinate(String coordinate)
+	+{static}boolean isCorrectPlayerName(String playerName)
 }
 
-class Ship {
-	- cells : ArrayList<Cell>
-	- isDown : boolean 
-	- health : int
+class Player [[java:boatSink.Player]] {
+	-String name
+	-Board shipsBoard
+	-String[][] shootsBoard
 	
-	Ship(shipSize : int)
-	+ addCell(c : Cell) : void 
-	+ isDown() : boolean 
-	+ isSunk() : boolean 
-	+ shoot : void  
+	~Player(String name, Board board)
+	-void setAllShootsBoardWater()
+	+String getName()
+	+Board getBoard()
+	+boolean isEndGame()
+	+boolean shoot(int x, int y)
+	+String toString()
 }
 
-class OneCellShip extends Ship {
-	- {static} HEALTH : int 
+class Printer [[java:boatSink.Printer]] {
+	-{static}Printer printer
 	
-	OneCellShip()
-	OneCellShip(Cell cell)
+	+{static}Printer getInstance()
+	+void showBoard()
+	+void askNumberOfShips(int nCells)
+	+void askPositionShip(String nombre)
+	+void askX()
+	+void askY()
+	+void askNameShip()
+	+void askLengthShip()
+	+void askOrientationShip()
 }
 
-class TwoCellShip extends Ship {
-	- {static} HEALTH : int 
+class Ship [[java:boatSink.Ship]] {
+	-int nCells
+	-int health
+	-boolean[][] down
 	
-	TwoCellShip()
-	TwoCellShip(cells : ArrayList<Cell>)
+	~Ship(int health)
+	+int getNCells()
+	+void setHealth(int health)
+	+int getHealth()
+	+boolean[][] setAllShipsDownFalse()
+	+void setDown(int x, int y)
+	+boolean isDown(int x, int y)
+	+boolean isSunk()
+	+void shoot(int x, int y)
+	+boolean isCorrectCoordinates(int x, int y)
 }
 
-class ThreeCellShip extends Ship {
-	- {static} HEALTH : int 
+class OneCellShip [[java:boatSink.OneCellShip]] extends Ship {
+	-{static}int HEALTH
 	
-	ThreeCellShip()
-	ThreeCellShip(cells : ArrayList<Cell>)
+	~OneCellShip()
+	~OneCellShip(int health)
 }
 
-class FourCellShip extends Ship {
-	- {static} HEALTH : int 
+class TwoCellShip [[java:boatSink.TwoCellShip]] extends Ship {
+	-{static}int HEALTH
 	
-	FourCellShip()
-	FourCellShip(cells : ArrayList<Cell>)
+	~OneCellShip()
+	~OneCellShip(int health)
+}
+
+class ThreeCellShip [[java:boatSink.ThreeCellShip]] extends Ship {
+	-{static}int HEALTH
+	
+	~OneCellShip()
+	~OneCellShip(int health)
+}
+
+class FourCellShip [[java:boatSink.FourCellShip]] extends Ship {
+	-{static}int HEALTH
+	
+	~OneCellShip()
+	~OneCellShip(int health)
 }
 
 @enduml
