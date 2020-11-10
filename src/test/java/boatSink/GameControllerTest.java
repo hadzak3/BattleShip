@@ -70,8 +70,7 @@ public class GameControllerTest {
     
     @Test 
     public void testEndOfGame() {
-    	/* TODO */
-    	//GameController g;
-    	//boolean res1 = GameController.endOfGame();
+    	GameController gm = new GameController();
+    	
     }
 }

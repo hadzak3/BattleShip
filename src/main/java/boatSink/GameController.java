@@ -4,12 +4,14 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
-public final class GameController {
+public class GameController {
 	
 	private static int playersCount = Constants.N_PLAYERS;
 	private static ArrayList<Player> players;
 	private static String input;
 	private static Scanner scanner = new Scanner(System.in);
+	
+	
 	
 	public static void main(String[] args) {	
 		playOneGame(playersCount);
@@ -176,4 +178,8 @@ public final class GameController {
 		return true;
 	}
 
+	//Setters:
+	public void setPlayers(ArrayList<Player> players) {
+		GameController.players = players;
+	}
 }
