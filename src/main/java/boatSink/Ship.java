@@ -55,7 +55,9 @@ public class Ship {
 	public boolean isSunk() {
 		return (this.health == 0);
 	}
-
+	public void setSunk() {
+		health = 0;
+	}
 	public void shoot(int x, int y) {
 		if(isCorrectCoordinates(x,y)){
 			this.down[x][y] = true;

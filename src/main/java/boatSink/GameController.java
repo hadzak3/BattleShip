@@ -11,8 +11,6 @@ public class GameController {
 	private static String input;
 	private static Scanner scanner = new Scanner(System.in);
 	
-	
-	
 	public static void main(String[] args) {	
 		playOneGame(playersCount);
 	}
@@ -33,8 +31,8 @@ public class GameController {
 		ArrayList<Ship> gameShips = new ArrayList<>();
 		gameShips.add(new OneCellShip());
 		gameShips.add(new TwoCellShip());
-		//gameShips.add(new ThreeCellShip());
-		//gameShips.add(new FourCellShip());
+		gameShips.add(new ThreeCellShip());
+		gameShips.add(new FourCellShip());
 		
 		for (int j = 0; j < playersCount; j++) { 
 			do {

@@ -176,6 +176,43 @@ public class BoardTest {
 	}
 	
 	@Test
+	public void isEndGameTest() {
+		//Test 1 - Board with one ship down (isEndGame=true)
+		Board board = new Board(10, 10);
+		OneCellShip ocs1 = new OneCellShip();
+		ocs1.setSunk();
+		board.createShip(0, 0, "h", ocs1);
+		assertTrue(board.isEndGame());
+		
+		//Test 2 - Board with one ship alive(isEndGame=false)
+		Board board2 = new Board(10,10);
+		OneCellShip ocs2 = new OneCellShip();
+		board2.createShip(0, 0, "h", ocs2);
+		assertFalse(board2.isEndGame());
+		
+		//Test 3 - Board with two ship down (isEndGame=true)
+		Board board3 = new Board(10,10);
+		OneCellShip ocs3_0 = new OneCellShip();
+		OneCellShip ocs3_1 = new OneCellShip();
+		ocs3_0.setSunk();
+		ocs3_1.setSunk();
+		board3.createShip(0, 0, "h", ocs3_0);
+		board3.createShip(9, 9, "h", ocs3_1);
+		assertTrue(board3.isEndGame());
+		
+		//Test 4 - Board with one ship alive and the other is down (isEndGame = false)
+		Board board4 = new Board(10,10);
+		OneCellShip ocs4_0 = new OneCellShip();
+		OneCellShip ocs4_1 = new OneCellShip();
+		ocs4_0.setSunk();
+		board4.createShip(0, 0, "h", ocs4_0);
+		board4.createShip(0, 1, "h", ocs4_1);
+		assertFalse(board4.isEndGame());
+		
+		
+	}
+	
+	@Test
 	public void isShipCellTest() {
 		// TODO
 	}
