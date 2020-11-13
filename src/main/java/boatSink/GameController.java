@@ -30,9 +30,9 @@ public class GameController {
 		players = new ArrayList<>();
 		ArrayList<Ship> gameShips = new ArrayList<>();
 		gameShips.add(new OneCellShip());
-		gameShips.add(new TwoCellShip());
-		gameShips.add(new ThreeCellShip());
-		gameShips.add(new FourCellShip());
+		//gameShips.add(new TwoCellShip());
+		//gameShips.add(new ThreeCellShip());
+		//gameShips.add(new FourCellShip());
 		
 		for (int j = 0; j < playersCount; j++) { 
 			do {

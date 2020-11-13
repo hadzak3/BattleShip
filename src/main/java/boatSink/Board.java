@@ -147,6 +147,10 @@ public class Board {
 		return isTheEnd;
 	}
 	
+	public ArrayList<Ship> getShips(){
+		return this.ships;
+	}
+	
 	@Override
 	public String toString() {
 		/* Prints columns number header. */

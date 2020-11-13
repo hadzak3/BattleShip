@@ -61,23 +61,7 @@ public class Player {
 	
 	@Override
 	public String toString() {
-		/* Prints column number header. */
-		System.out.printf("%4s", 0);
-		for (int x = 1; x < Constants.N_BOARD_ROWS_CELLS; x++) {
-			System.out.printf("%3s", x);
-		}
-		
-		System.out.println("");
-		
-		/* Shoots board. */
-		for (int x = 0; x < Constants.N_BOARD_ROWS_CELLS; x++) {
-			// Prints rows number header.
-			System.out.printf("%-3s", x); 
-			for (int y = 0; y < Constants.N_BOARD_ROWS_CELLS; y++) {
-				System.out.printf("%-2s ", this.shootsBoard[x][y]);
-			}
-			System.out.println("");
-		}
+
 	
 		return "";
 	}

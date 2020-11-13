@@ -209,8 +209,26 @@ public class BoardTest {
 		board4.createShip(0, 1, "h", ocs4_1);
 		assertFalse(board4.isEndGame());
 		
-		
+		//Test 5 - Board with no one ship 
+		Board board5 = new Board(10,10);
+		assertTrue(board5.isEndGame());
 	}
+	
+	@Test
+	public void shootTest() {
+		//Test 1 - Shoot to one cell ship
+		OneCellShip ocs = new OneCellShip();
+		Board b = new Board(10,10);
+		b.createShip(0, 0, "h", ocs);
+		assertTrue(b.shoot(0, 0));
+		
+		//Test 2 - Shoot water
+		assertFalse(b.shoot(9, 9));
+		
+		//Test 3 - Shoots near ship
+		assertFalse(b.shoot(0, 1));
+	}
+	
 	
 	@Test
 	public void isShipCellTest() {
