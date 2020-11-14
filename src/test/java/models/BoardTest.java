@@ -1,7 +1,12 @@
-package boatSink;
+package models;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import model.Board;
+import model.OneCellShip;
+import model.Ship;
+import model.TwoCellShip;
 
 public class BoardTest {
 	final boolean TRACE_MODE = false; // true to show test info.
@@ -78,7 +83,7 @@ public class BoardTest {
 		
 		Board board = new Board(10, 10);
 		Ship ship = new TwoCellShip();
-		String orientations[] = {"h", "h", "h", "v", "h", "v", "h", "v", "v", "v", "h"}; 
+		String orientations[] = {"h", "h", "h", "v", "h", "v", "h", "v", "v", "v", "h", "z"}; 
 		int coordinates[][][] = {
 				{
 					{-1, 0}, {-1, 0}, 
@@ -113,6 +118,9 @@ public class BoardTest {
 				{
 					{10, 9}, {10, 9}, 
 				},
+				{
+					{8, 8}, {7, 8}, 
+				},
 			};
 		
 		boolean expected[][] = {
@@ -142,6 +150,9 @@ public class BoardTest {
 				},
 				{
 					false, true,
+				},
+				{
+					false, false,
 				},
 				{
 					false, false,

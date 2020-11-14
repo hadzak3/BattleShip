@@ -1,22 +1,16 @@
-package boatSink;
+package models;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import model.FourCellShip;
+import model.OneCellShip;
+import model.Ship;
+import model.ThreeCellShip;
+import model.TwoCellShip;
+
 public class ShipTest {
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void constructorExceptionFirstTest() {
-		// doesn't matter which type of ship we instantiate, test output is the same.
-		new OneCellShip(-1);
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void constructorExceptionSecondTest() {
-		// doesn't matter which type of ship we instantiate, test output is the same.
-		new OneCellShip(0);
-	}
 	
 	@Test
 	public void isCorrectCoordinatesTest() {

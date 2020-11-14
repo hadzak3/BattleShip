@@ -1,25 +1,39 @@
-package boatSink;
+package model;
+
+import utils.Constants;
 
 public class Cell {
 
 	private int x, y;
 	private Ship ship;
+	private String state;
 	
-	Cell(int x, int y, Ship ship){
+	public Cell(int x, int y, Ship ship){
 		if(x < 0 || x >= Constants.N_BOARD_ROWS_CELLS || y < 0 || y >= Constants.N_BOARD_ROWS_CELLS) {
 			throw new IllegalArgumentException();
 		}
 		this.x = x;
 		this.y = y;
 		this.ship = ship;
+		this.state = "-"; // water
+		if (this.ship != null) {
+			this.state = "+"; // ship
+		}
 	}
 	 
 	public void setShip(Ship ship) {
 		this.ship = ship;
+		if (this.ship != null) {
+			this.state = Integer.toString(this.ship.getHealth()); // health remaining
+		}
 	}
 	
 	public Ship getShip() {
 		return this.ship;
+	}
+	
+	public String getState() {
+		return this.state;
 	}
 	
 	public boolean isShip(int x, int y) {	
@@ -32,6 +46,11 @@ public class Cell {
 				System.out.println("Barco tocado previamente.");
 			} else {
 				this.ship.shoot(x, y);
+				if (this.ship.isSunk()) {
+					this.state = "+"; // sunk
+				} else { // this.ship.isDown()
+					this.state = Integer.toString(this.ship.getHealth()); // health remaining
+				}
 			}
 		}
 	}
@@ -43,18 +62,5 @@ public class Cell {
 		}
 		
 		return isShipDown;
-	}
-	
-	@Override
-	public String toString() {
-		String out = "-"; // Water
-		if (this.ship != null) {
-			out = Integer.toString(this.ship.getHealth()); // ship
-			if (this.ship.isSunk()) {
-				out = "+"; // Sunk
-			}
-		}
-		
-		return out;
 	}
 }

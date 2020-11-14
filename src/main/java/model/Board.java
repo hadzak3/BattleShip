@@ -1,6 +1,7 @@
-package boatSink;
+package model;
 
 import java.util.ArrayList;
+import utils.Constants;
 
 public class Board {
 
@@ -8,7 +9,7 @@ public class Board {
 	private Cell cells[][];
 	private ArrayList<Ship> ships;
 	
-	Board (int nRows, int nCols) {
+	public Board (int nRows, int nCols) {
 		if(nRows != Constants.N_BOARD_ROWS_CELLS || nCols != Constants.N_BOARD_ROWS_CELLS) {
 			throw new IllegalArgumentException();
 		}
@@ -27,7 +28,19 @@ public class Board {
 		}
 	}
 	
-	protected boolean createShip(int x0, int y0, String orientation, Ship ship) {	
+	public int getNRows() {
+		return this.nRows;
+	}
+	
+	public int getNCols() {
+		return this.nCols;
+	}
+	
+	public Cell[][] getCells() {
+		return this.cells;
+	}
+	
+	public boolean createShip(int x0, int y0, String orientation, Ship ship) {	
 		boolean isCreated = false;
 		
 		if (this.isCorrectCoordinates(x0, y0)) {
@@ -117,7 +130,7 @@ public class Board {
 		return isCreated;
 	}
 	
-	protected boolean isShipCell(int x, int y) {
+	public boolean isShipCell(int x, int y) {
 		boolean isShip = false;
 		if (this.isCorrectCoordinates(x, y)) {
 			isShip = this.cells[x][y].isShip(x, y);
@@ -126,17 +139,19 @@ public class Board {
 		return isShip;
 	}
 	
-	protected boolean shoot(int x, int y) {
+	public boolean shoot(int x, int y) {
 		boolean isDown = false;
-		if(cells[x][y].isShip(x, y)) {
-			 cells[x][y].shootShip(x, y);
-			 isDown = true;
+		if (isCorrectCoordinates(x, y)) {
+			if(cells[x][y].isShip(x, y)) {
+				 cells[x][y].shootShip(x, y);
+				 isDown = true;
+			}
 		}
 		
 		return isDown;
 	}
 	
-	protected boolean isEndGame() {
+	public boolean isEndGame() {
 		boolean isTheEnd = true;
 		for (int i = 0; i < ships.size() && isTheEnd; i++) {
 			if (!ships.get(i).isSunk()) {
@@ -145,33 +160,6 @@ public class Board {
 		}
 		
 		return isTheEnd;
-	}
-	
-	public ArrayList<Ship> getShips(){
-		return this.ships;
-	}
-	
-	@Override
-	public String toString() {
-		/* Prints columns number header. */
-		System.out.printf("%4s", 0);
-		for (int x = 1; x < this.nCols; x++) {
-			System.out.printf("%3s", x);
-		}
-		
-		System.out.println("");
-		
-		/* Main board. */
-		for (int x = 0; x < this.nRows; x++) {
-			// prints rows number header.
-			System.out.printf("%-3s", x); 
-			for (int y = 0; y < this.nCols; y++) {
-				System.out.printf("%-2s ", this.cells[x][y]);
-			}
-			System.out.println("");
-		}
-	
-		return "";
 	}
 	
 	public boolean isCorrectCoordinates(int x, int y) {

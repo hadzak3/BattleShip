@@ -1,4 +1,4 @@
-package boatSink;
+package utils;
 
 public final class Constants {
 	

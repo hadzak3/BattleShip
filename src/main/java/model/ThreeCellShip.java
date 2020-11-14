@@ -1,14 +1,10 @@
-package boatSink;
+package model;
 
 public class ThreeCellShip extends Ship {
 	
 	private static int HEALTH = 3;
 	
-	ThreeCellShip() {
+	public ThreeCellShip() {
 		super(HEALTH);
-	}
-
-	ThreeCellShip(int health) {
-		super(health);
 	}
 }

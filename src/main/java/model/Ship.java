@@ -1,15 +1,14 @@
-package boatSink;
+package model;
 
-public class Ship {
+import utils.Constants;
+
+public abstract class Ship {
 	
 	private int nCells;
 	private int health;
 	private boolean down[][];
 
 	Ship(int health){
-		if(health <= 0) {
-			throw new IllegalArgumentException();
-		}
 		this.nCells = health;
 		this.health = health; 
 		this.down = new boolean[Constants.N_BOARD_ROWS_CELLS][Constants.N_BOARD_ROWS_CELLS];
@@ -21,7 +20,9 @@ public class Ship {
 	}
 	
 	public void setHealth(int health) {
-		this.health = health;
+		if (isCorrectHealth(health)) {
+			this.health = health;
+		}
 	}
 	
 	public int getHealth() {
@@ -59,7 +60,7 @@ public class Ship {
 		health = 0;
 	}
 	public void shoot(int x, int y) {
-		if(isCorrectCoordinates(x,y)){
+		if (isCorrectCoordinates(x, y)){
 			this.down[x][y] = true;
 			this.health--;
 			if (this.health == 0) {
@@ -68,6 +69,10 @@ public class Ship {
 				System.out.println("Barco de " + this.nCells + " casilla(s) tocado.");
 			}
 		}
+	}
+	
+	public boolean isCorrectHealth(int health) {
+		return health >= 0;
 	}
 	
 	public boolean isCorrectCoordinates(int x, int y) {

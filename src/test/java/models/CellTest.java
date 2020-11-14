@@ -1,10 +1,18 @@
-package boatSink;
+package models;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import model.Cell;
+import model.FourCellShip;
+import model.OneCellShip;
+import model.Ship;
+import model.ThreeCellShip;
+import model.TwoCellShip;
+
 public class CellTest {
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void constructorExceptionFirstTest() {
 		new Cell(-1, 0, null); 

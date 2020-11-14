@@ -1,4 +1,4 @@
-package boatSink;
+package controller;
 
 import java.util.ArrayList;
 
