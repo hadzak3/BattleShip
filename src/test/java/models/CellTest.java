@@ -157,5 +157,24 @@ public class CellTest {
 		/* test case 3. */
 		cell.shootShip(-1, -1);
 		assertFalse(cell.getShip().isDown(-1, -1));
+		
+		/* test case 4 . ship with 2 cells and shoot (not sunk)*/
+		
+		Ship ship2 = new TwoCellShip();
+		cell = new Cell(5,5,ship2);
+		cell.shootShip(5, 5);
+	}
+	
+	@Test 
+	public void setAndGetShipTest() {
+		Ship ship = new TwoCellShip();
+		Cell c = new Cell(0,0,ship);
+		
+		c.setShip(ship);
+		assertEquals(c.getState(), "2");
+		
+		c.setShip(null);
+		assertEquals(c.getState(),"2");
+		
 	}
 }

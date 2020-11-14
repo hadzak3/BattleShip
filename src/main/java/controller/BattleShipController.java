@@ -8,6 +8,8 @@ import model.Board;
 import model.OneCellShip;
 import model.Player;
 import model.Ship;
+import model.ThreeCellShip;
+import model.TwoCellShip;
 import utils.Constants;
 import view.BattleShipView;
 
@@ -33,13 +35,13 @@ public class BattleShipController {
 		printWinner(j);
 	}
 	
-	private void initializeGame() {
+	public void initializeGame() {
 		players = new ArrayList<>();
 		ArrayList<Ship> ships = new ArrayList<>();
 		
 		ships.add(new OneCellShip());
-		//ships.add(new TwoCellShip());
-		//ships.add(new ThreeCellShip());
+		ships.add(new TwoCellShip());
+		ships.add(new ThreeCellShip());
 		//ships.add(new FourCellShip());
 		
 		String name;
@@ -137,15 +139,14 @@ public class BattleShipController {
 		}
 	}
 	
+
 	private boolean endOfGame() {
-		boolean isTheEnd = true;
-		for (int j = 0; j < playersCount && isTheEnd; j++) {
-			if (!players.get(j).isEndGame()) {
-				isTheEnd = false;
+		for (int j = 0; j < playersCount; j++) {
+			if (players.get(j).isEndGame()) {
+				return true;
 			}
 		}
-	
-		return isTheEnd;
+		return false;
 	}
 	
 	private void printWinner(int playerId) {
@@ -182,5 +183,7 @@ public class BattleShipController {
 		}
 		return true;
 	}
+	
+	
 
 }

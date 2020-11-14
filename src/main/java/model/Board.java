@@ -51,7 +51,7 @@ public class Board {
 				if (nCells == 1) {
 					cells[x0][y0].setShip(ship);
 					isCreated = true;
-				} else if (nCells > 1) {
+				} else {
 					int coordinateLimit = 0;
 					if (orientation.equals(Constants.SHIP_HORIZONTAL)) {
 						if (y0 + nCells < this.nCols) { /* try to create current position right cells. */
@@ -84,7 +84,7 @@ public class Board {
 							}
 			    		}
 					} else if (orientation.equals(Constants.SHIP_VERTICAL)) {
-						if (x0 + nCells < this.nRows) { /* try to create current position upper cells. */
+						if (x0 + nCells < this.nRows) { /* try to create current position lower cells. */
 							coordinateLimit = x0 + nCells;
 							int x = x0;
 							do {
@@ -99,7 +99,7 @@ public class Board {
 							}
 			    		} 
 						
-						if (!isCreated && (x0 - nCells >= 0)) { /* try to create current position lower cells. */
+						if (!isCreated && (x0 - nCells >= 0)) { /* try to create current position upper cells. */
 							coordinateLimit = x0 - nCells;
 			    			int x = x0;
 							do {
@@ -152,14 +152,13 @@ public class Board {
 	}
 	
 	public boolean isEndGame() {
-		boolean isTheEnd = true;
-		for (int i = 0; i < ships.size() && isTheEnd; i++) {
+		for (int i = 0; i < ships.size(); i++) {
 			if (!ships.get(i).isSunk()) {
-				isTheEnd = false;
+				return false;
 			}
 		}
 		
-		return isTheEnd;
+		return true;
 	}
 	
 	public boolean isCorrectCoordinates(int x, int y) {

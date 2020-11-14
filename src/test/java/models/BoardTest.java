@@ -83,7 +83,7 @@ public class BoardTest {
 		
 		Board board = new Board(10, 10);
 		Ship ship = new TwoCellShip();
-		String orientations[] = {"h", "h", "h", "v", "h", "v", "h", "v", "v", "v", "h", "z"}; 
+		String orientations[] = {"h", "h", "h", "v", "h", "v", "h", "v", "v", "v", "h", "z", "h", "h", "h", "h","h"}; 
 		int coordinates[][][] = {
 				{
 					{-1, 0}, {-1, 0}, 
@@ -121,6 +121,21 @@ public class BoardTest {
 				{
 					{8, 8}, {7, 8}, 
 				},
+				{
+					{9,8}, {9,7},
+				},
+				{
+					{9,6},{9,5},
+				},
+				{
+					{9,3}, {9,4}
+				},
+				{
+					{9,0},{9,1}
+				},
+				{
+					{9,2}, {8,2}
+				}
 			};
 		
 		boolean expected[][] = {
@@ -160,6 +175,21 @@ public class BoardTest {
 				{
 					false, false,
 				},
+				{
+					true, true,
+				},
+				{
+					true, true,
+				},
+				{
+					true, true,
+				},
+				{
+					true, true,
+				},
+				{
+					false, false,
+				}
 			};
 		boolean result2;
 		for (int i = 0; i < coordinates.length; i++) {		
@@ -184,6 +214,35 @@ public class BoardTest {
 		if (TRACE_MODE) { 
 			System.out.println("end createTwoCellShipTest\n");
 		}
+		
+		//Reset board to prove more cases:
+		Board board2 = new Board(10,10);
+		assertTrue(board2.createShip(0, 1, "h", ship));
+		
+		assertTrue(board2.isShipCell(0, 2));
+		
+		assertFalse(board2.createShip(0, 0, "h", ship));
+		
+		Board board3 = new Board(10,10);
+		
+		assertTrue(board3.createShip(0, 0, "v", ship));
+		
+		assertTrue(board3.isShipCell(1, 0));
+		
+		assertTrue(board3.createShip(3, 0, "v", ship));
+		
+		assertTrue(board3.isShipCell(4, 0));
+		
+		assertFalse(board3.createShip(2, 0, "v", ship));
+		
+		Board board4 = new Board(10,10);
+		assertTrue(board4.createShip(1, 0, "v", ship));
+		
+		assertTrue(board4.isShipCell(2, 0));
+		
+		assertFalse(board4.createShip(0, 0, "v", ship));
+		
+		
 	}
 	
 	@Test
@@ -238,12 +297,18 @@ public class BoardTest {
 		
 		//Test 3 - Shoots near ship
 		assertFalse(b.shoot(0, 1));
+		
+		//Test 4 - bad coordinates
+		assertFalse(b.shoot(100, 100));
 	}
 	
 	
 	@Test
-	public void isShipCellTest() {
-		// TODO
+	public void gettersTest() {
+		Board b = new Board(10,10);
+		assertEquals(b.getNCols(), 10);
+		assertEquals(b.getNRows(), 10);
+		assertNotNull(b.getCells());
 	}
 	
 }

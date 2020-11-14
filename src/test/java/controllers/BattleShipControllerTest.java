@@ -79,6 +79,7 @@ public class BattleShipControllerTest {
     
     @Test 
     public void testEndOfGame() {
-    	//BattleShipController battleShipController = new BattleShipController();
+    	//BattleShipController b = new BattleShipController();
+
     }
 }

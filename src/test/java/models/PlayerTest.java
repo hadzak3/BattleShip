@@ -8,6 +8,7 @@ import model.Board;
 import model.FourCellShip;
 import model.OneCellShip;
 import model.Player;
+import model.Ship;
 import model.ThreeCellShip;
 import model.TwoCellShip;
 import utils.Constants;
@@ -160,5 +161,73 @@ public class PlayerTest {
 	public void shootTestIncorrectInput6() {
 		Player p = new Player();
 		assertFalse(p.shoot(-100, 0));
+	}
+	
+	@Test
+	public void createShipTest() {
+		Player player = new Player("player1");
+		Ship ship = new OneCellShip();
+		
+		assertTrue(player.createShip(0, 0, "h", ship));
+		
+		assertTrue(player.createShip(9, 9, "h", ship));
+		
+		assertTrue(player.createShip(5, 5, "h", ship));
+		
+		assertTrue(player.createShip(0, 9, "h", ship));
+		
+		assertTrue(player.createShip(9, 0, "h", ship));
+		
+		assertFalse(player.createShip(0, 0, "h", ship));
+		
+		assertFalse(player.createShip(9, 9, "h", ship));
+		
+		assertFalse(player.createShip(5, 5, "h", ship));
+		
+		assertFalse(player.createShip(0, 9, "h", ship));
+		
+		assertFalse(player.createShip(9, 0, "h", ship));
+		
+		Player player2 = new Player("player2");
+		
+		assertTrue(player2.createShip(0, 0, "v", ship));
+		
+		assertTrue(player2.createShip(9, 9, "v", ship));
+		
+		assertTrue(player2.createShip(5, 5, "v", ship));
+		
+		assertTrue(player2.createShip(0, 9, "v", ship));
+		
+		assertTrue(player2.createShip(9, 0, "v", ship));
+		
+		assertFalse(player2.createShip(0, 0, "v", ship));
+		
+		assertFalse(player2.createShip(9, 9, "v", ship));
+		
+		assertFalse(player2.createShip(5, 5, "v", ship));
+		
+		assertFalse(player2.createShip(0, 9, "v", ship));
+		
+		assertFalse(player2.createShip(9, 0, "v", ship));
+	
+		Player player3 = new Player("player3");
+		
+		assertFalse(player3.createShip(10, 0, "h", ship));
+		
+		assertFalse(player3.createShip(0, 10, "h", ship));
+		
+		assertFalse(player3.createShip(-1, 0, "h", ship));
+		
+		assertFalse(player3.createShip(0, -1, "h", ship));
+		
+		
+	}
+	
+	@Test
+	public void gettersTest() {
+		Player p = new Player("test name");
+		assertNotNull(p.getName());
+		assertNotNull(p.getShipsBoard());
+		assertNotNull(p.getShootsBoard());
 	}
 }
