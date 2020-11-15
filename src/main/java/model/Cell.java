@@ -1,6 +1,6 @@
 package model;
 
-import utils.Constants;
+import constants.Constants;
 
 public class Cell {
 

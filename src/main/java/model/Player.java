@@ -1,6 +1,6 @@
 package model;
 
-import utils.Constants;
+import constants.Constants;
 
 public class Player {
 
@@ -47,8 +47,8 @@ public class Player {
 		return this.shootsBoard;
 	}
 	
-	public boolean isEndGame() {
-		return this.shipsBoard.isEndGame();
+	public boolean isAllShipsSunk() {
+		return this.shipsBoard.isAllShipsSunk();
 	}
 	
 	public boolean createShip(int x, int y, String orientation, Ship ship) {

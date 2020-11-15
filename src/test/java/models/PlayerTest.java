@@ -1,9 +1,9 @@
 package models;
 
 import static org.junit.Assert.*;
-import org.junit.Assert;
 import org.junit.Test;
 
+import constants.Constants;
 import model.Board;
 import model.FourCellShip;
 import model.OneCellShip;
@@ -11,7 +11,6 @@ import model.Player;
 import model.Ship;
 import model.ThreeCellShip;
 import model.TwoCellShip;
-import utils.Constants;
 
 public class PlayerTest {
 	
@@ -38,13 +37,13 @@ public class PlayerTest {
 		OneCellShip ocs1 = new OneCellShip();
 		ocs1.setSunk();
 		p1.createShip(0, 0, "h", ocs1);
-		assertTrue(p1.isEndGame());
+		assertTrue(p1.isAllShipsSunk());
 		
 		//Test 2 - Board with one ship alive(isEndGame=false)
 		Player p2 = new Player("name"); 
 		OneCellShip ocs2 = new OneCellShip();
 		p2.createShip(0, 0, "h", ocs2);
-		assertFalse(p2.isEndGame());
+		assertFalse(p2.isAllShipsSunk());
 		
 		//Test 3 - Board with two ship down (isEndGame=true)
 		Player p3 = new Player("name");
@@ -54,7 +53,7 @@ public class PlayerTest {
 		ocs3_1.setSunk();
 		p3.createShip(0, 0, "h", ocs3_0);
 		p3.createShip(9, 9, "h", ocs3_1);
-		assertTrue(p3.isEndGame());
+		assertTrue(p3.isAllShipsSunk());
 		
 		//Test 4 - Board with one ship alive and the other is down (isEndGame = false)
 		Player p4 = new Player("name");
@@ -63,11 +62,11 @@ public class PlayerTest {
 		ocs4_0.setSunk();
 		p4.createShip(0, 0, "h", ocs4_0);
 		p4.createShip(0, 1, "h", ocs4_1);
-		assertFalse(p4.isEndGame());
+		assertFalse(p4.isAllShipsSunk());
 		
 		//Test 5 - Board with no one ship 
 		Player p5 = new Player("name");
-		assertTrue(p5.isEndGame());
+		assertTrue(p5.isAllShipsSunk());
 	}
 
 	@Test

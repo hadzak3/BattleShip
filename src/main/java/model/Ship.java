@@ -1,6 +1,6 @@
 package model;
 
-import utils.Constants;
+import constants.Constants;
 
 public abstract class Ship {
 	
@@ -40,7 +40,7 @@ public abstract class Ship {
 	
 	public void setDown(int x, int y) {
 		if(isCorrectCoordinates(x,y)) {
-			down[x][y] = true;
+			this.down[x][y] = true;
 		}
 	}
 	
@@ -56,9 +56,11 @@ public abstract class Ship {
 	public boolean isSunk() {
 		return (this.health == 0);
 	}
+	
 	public void setSunk() {
-		health = 0;
+		this.health = 0;
 	}
+	
 	public void shoot(int x, int y) {
 		if (isCorrectCoordinates(x, y)){
 			this.down[x][y] = true;

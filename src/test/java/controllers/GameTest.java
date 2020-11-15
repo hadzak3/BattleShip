@@ -5,7 +5,7 @@ package controllers;
 
 import org.junit.Test;
 
-import Constants.Constants;
+import constants.Constants;
 import controller.Game;
 import controller.MockPlayerVersusPlayer;
 import model.Board;

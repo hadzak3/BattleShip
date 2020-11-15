@@ -2,7 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
-import Constants.Constants;
+import constants.Constants;
 import model.OneCellShip;
 import model.Player;
 import model.Ship;

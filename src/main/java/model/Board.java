@@ -1,7 +1,8 @@
 package model;
 
 import java.util.ArrayList;
-import utils.Constants;
+
+import constants.Constants;
 
 public class Board {
 
@@ -38,6 +39,10 @@ public class Board {
 	
 	public Cell[][] getCells() {
 		return this.cells;
+	}
+	
+	public ArrayList<Ship> getShips() {
+		return this.ships;
 	}
 	
 	public boolean createShip(int x0, int y0, String orientation, Ship ship) {	
@@ -117,14 +122,10 @@ public class Board {
 						System.out.println("Orientation not implemented: " + orientation);
 					}
 				}
+				if (isCreated) {
+					ships.add(ship);
+				}
 			}
-		}
-			
-		if (isCreated) {
-			//System.out.println("Barco creado correctamente.");
-			ships.add(ship);
-		} else {
-			//System.out.println("No se ha podido crear el barco en las coordenadas fijadas. Prueba con datos nuevos.");
 		}
 		
 		return isCreated;
@@ -151,7 +152,7 @@ public class Board {
 		return isDown;
 	}
 	
-	public boolean isEndGame() {
+	public boolean isAllShipsSunk() {
 		for (int i = 0; i < ships.size(); i++) {
 			if (!ships.get(i).isSunk()) {
 				return false;

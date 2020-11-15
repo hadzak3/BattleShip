@@ -1,21 +1,22 @@
 package view;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
+import constants.Constants;
 import model.Board;
 import model.Cell;
 import model.Player;
-import utils.Constants;
 
 /*
 * It contains the output messages.
 * */
-public class BattleShipView {
+public class View {
 
 	private String input;
 	private Scanner scanner = new Scanner(System.in);
 	
-	public BattleShipView() {}
+	public View() {}
 	
 	public void showMsg(String msg) {
 		System.out.println(msg);
@@ -119,6 +120,25 @@ public class BattleShipView {
 			}
 			System.out.println("");
 		}
+	}
+	
+	public void waitBetweenChangingPlayerTurn(int seconds) {
+		try {
+			this.showMsg("Cambiando turno en ");
+			for(int i = seconds; i > 0; i--) {
+				this.showMsg(i + " seconds...");
+				TimeUnit.SECONDS.sleep(1);
+			}
+		}
+		catch(InterruptedException ex)
+		{
+		    Thread.currentThread().interrupt();
+		}
+	}
+	
+	public void printWinner(String name) {
+		this.showSectionLine();
+		System.out.println("El ganador es " + name);
 	}
 	
 }

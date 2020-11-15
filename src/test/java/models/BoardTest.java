@@ -252,13 +252,13 @@ public class BoardTest {
 		OneCellShip ocs1 = new OneCellShip();
 		ocs1.setSunk();
 		board.createShip(0, 0, "h", ocs1);
-		assertTrue(board.isEndGame());
+		assertTrue(board.isAllShipsSunk());
 		
 		//Test 2 - Board with one ship alive(isEndGame=false)
 		Board board2 = new Board(10,10);
 		OneCellShip ocs2 = new OneCellShip();
 		board2.createShip(0, 0, "h", ocs2);
-		assertFalse(board2.isEndGame());
+		assertFalse(board2.isAllShipsSunk());
 		
 		//Test 3 - Board with two ship down (isEndGame=true)
 		Board board3 = new Board(10,10);
@@ -268,7 +268,7 @@ public class BoardTest {
 		ocs3_1.setSunk();
 		board3.createShip(0, 0, "h", ocs3_0);
 		board3.createShip(9, 9, "h", ocs3_1);
-		assertTrue(board3.isEndGame());
+		assertTrue(board3.isAllShipsSunk());
 		
 		//Test 4 - Board with one ship alive and the other is down (isEndGame = false)
 		Board board4 = new Board(10,10);
@@ -277,11 +277,11 @@ public class BoardTest {
 		ocs4_0.setSunk();
 		board4.createShip(0, 0, "h", ocs4_0);
 		board4.createShip(0, 1, "h", ocs4_1);
-		assertFalse(board4.isEndGame());
+		assertFalse(board4.isAllShipsSunk());
 		
 		//Test 5 - Board with no one ship 
 		Board board5 = new Board(10,10);
-		assertTrue(board5.isEndGame());
+		assertTrue(board5.isAllShipsSunk());
 	}
 	
 	@Test
