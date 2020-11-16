@@ -24,7 +24,7 @@ public class Board {
 	public void setAllCellsWater() {
 		for(int x = 0; x < this.nRows; x++) {
 			for(int y = 0; y < this.nCols; y++) {
-				this.cells[x][y] = new Cell(x, y, null);
+				this.cells[x][y] = new Cell();
 			}
 		}
 	}
@@ -134,7 +134,7 @@ public class Board {
 	public boolean isShipCell(int x, int y) {
 		boolean isShip = false;
 		if (this.isCorrectCoordinates(x, y)) {
-			isShip = this.cells[x][y].isShip(x, y);
+			isShip = this.cells[x][y].isShip();
 		}
 		
 		return isShip;
@@ -143,7 +143,7 @@ public class Board {
 	public boolean shoot(int x, int y) {
 		boolean isDown = false;
 		if (isCorrectCoordinates(x, y)) {
-			if(cells[x][y].isShip(x, y)) {
+			if(cells[x][y].isShip()) {
 				 cells[x][y].shootShip(x, y);
 				 isDown = true;
 			}

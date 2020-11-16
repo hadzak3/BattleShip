@@ -11,4 +11,8 @@ public final class Constants {
 	/* Ships */
 	public static final String SHIP_HORIZONTAL = "h";
 	public static final String SHIP_VERTICAL = "v";
+	
+	/* Cells */
+	public static final String WATER_CELL_STATE = "-";
+	public static final String SUNK_CELL_STATE = "+";
 }

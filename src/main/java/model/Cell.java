@@ -4,27 +4,21 @@ import constants.Constants;
 
 public class Cell {
 
-	private int x, y;
-	private Ship ship;
 	private String state;
+	private Ship ship;
 	
-	public Cell(int x, int y, Ship ship){
-		if(x < 0 || x >= Constants.N_BOARD_ROWS_CELLS || y < 0 || y >= Constants.N_BOARD_ROWS_CELLS) {
-			throw new IllegalArgumentException();
-		}
-		this.x = x;
-		this.y = y;
-		this.ship = ship;
+	public Cell(){
 		this.state = "-"; // water
-		if (this.ship != null) {
-			this.state = "+"; // ship
-		}
+		this.ship = null;
 	}
 	 
 	public void setShip(Ship ship) {
-		this.ship = ship;
-		if (this.ship != null) {
-			this.state = Integer.toString(this.ship.getHealth()); // health remaining
+		if (ship == null) {
+			this.ship = null;
+			this.state = Constants.WATER_CELL_STATE;
+		} else {
+			this.ship = ship;
+			this.state = Integer.toString(this.ship.getHealth());
 		}
 	}
 	
@@ -36,20 +30,22 @@ public class Cell {
 		return this.state;
 	}
 	
-	public boolean isShip(int x, int y) {	
-		return (this.ship != null && this.x == x && this.y == y);
+	public boolean isShip() {	
+		return (this.ship != null);
 	}
 	
 	public void shootShip(int x, int y) {
-		if (this.isShip(x, y)) { 
+		if (this.isShip()) { 
 			if (this.ship.isDown(x, y)) {
 				System.out.println("Barco tocado previamente.");
 			} else {
 				this.ship.shoot(x, y);
 				if (this.ship.isSunk()) {
-					this.state = "+"; // sunk
+					System.out.println("Barco de " + this.ship.getNCells() + " casilla(s) hundido.");
+					this.state = Constants.SUNK_CELL_STATE;
 				} else { // this.ship.isDown()
-					this.state = Integer.toString(this.ship.getHealth()); // health remaining
+					System.out.println("Barco de " +  this.ship.getNCells() + " casilla(s) tocado.");
+					this.state = Integer.toString(this.ship.getHealth());
 				}
 			}
 		}
@@ -57,10 +53,11 @@ public class Cell {
 	
 	public boolean isShipDown(int x, int y) {
 		boolean isShipDown = false;
-		if (this.isShip(x, y)) {
+		if (this.isShip()) {
 			isShipDown = this.ship.isDown(x, y);
 		}
-		
+	
+
 		return isShipDown;
 	}
 }
