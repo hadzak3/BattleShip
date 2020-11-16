@@ -4,8 +4,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import model.Board;
+import model.FourCellShip;
 import model.OneCellShip;
 import model.Ship;
+import model.ThreeCellShip;
 import model.TwoCellShip;
 
 public class BoardTest {
@@ -246,7 +248,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void isEndGameTest() {
+	public void isAllShipSunkTest() {
 		//Test 1 - Board with one ship down (isEndGame=true)
 		Board board = new Board(10, 10);
 		OneCellShip ocs1 = new OneCellShip();
@@ -285,23 +287,378 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void shootTest() {
-		//Test 1 - Shoot to one cell ship
-		OneCellShip ocs = new OneCellShip();
+	public void shootOneCellShipTestValidInput() {
+		Ship ship = new OneCellShip();
 		Board b = new Board(10,10);
-		b.createShip(0, 0, "h", ocs);
+		
+		b.createShip(0, 0, "h", ship);
 		assertTrue(b.shoot(0, 0));
 		
-		//Test 2 - Shoot water
-		assertFalse(b.shoot(9, 9));
+		b.createShip(0, 1, "h", ship);
+		assertTrue(b.shoot(0, 1));
 		
-		//Test 3 - Shoots near ship
-		assertFalse(b.shoot(0, 1));
+		b.createShip(9, 9, "h", ship);
+		assertTrue(b.shoot(9, 9));
 		
-		//Test 4 - bad coordinates
-		assertFalse(b.shoot(100, 100));
+		b.createShip(5, 5, "h", ship);
+		assertTrue(b.shoot(5, 5));
+		
+		b.createShip(9, 8, "h", ship);
+		assertTrue(b.shoot(9, 8));
+		
+		b.createShip(8, 9, "h", ship);
+		assertTrue(b.shoot(8, 9));
+		
+		b.createShip(9, 0, "h", ship);
+		assertTrue(b.shoot(9, 0));
+		
+		
 	}
 	
+	@Test
+	public void shootOneCellShipTestInvalidInput() {
+		Ship ship = new OneCellShip();
+		Board b = new Board(10,10);
+		
+		b.createShip(-1, 0, "h", ship);
+		assertFalse(b.shoot(-1, 0));
+		
+		b.createShip(0, -1, "h", ship);
+		assertFalse(b.shoot(0, -1));
+		
+		b.createShip(-9, -9, "h", ship);
+		assertFalse(b.shoot(-9, -9));
+		
+		b.createShip(-5, -5, "h", ship);
+		assertFalse(b.shoot(-5, -5));
+		
+		b.createShip(-9, -8, "h", ship);
+		assertFalse(b.shoot(-9, -8));
+		
+		b.createShip(-8, -9, "h", ship);
+		assertFalse(b.shoot(-8, -9));
+		
+		b.createShip(-9, 0, "h", ship);
+		assertFalse(b.shoot(-9, 0));
+		
+		b.createShip(10, 0, "h", ship);
+		assertFalse(b.shoot(10, 0));
+		
+		b.createShip(100, 0, "h", ship);
+		assertFalse(b.shoot(100, 0));
+		
+		b.createShip(-100, 0, "h", ship);
+		assertFalse(b.shoot(-100, 0));
+		
+		//orientation = v
+		
+		b.createShip(-1, 0, "v", ship);
+		assertFalse(b.shoot(-1, 0));
+		
+		b.createShip(0, -1, "v", ship);
+		assertFalse(b.shoot(0, -1));
+		
+		b.createShip(-9, -9, "v", ship);
+		assertFalse(b.shoot(-9, -9));
+		
+		b.createShip(-5, -5, "v", ship);
+		assertFalse(b.shoot(-5, -5));
+		
+		b.createShip(-9, -8, "v", ship);
+		assertFalse(b.shoot(-9, -8));
+		
+		b.createShip(-8, -9, "v", ship);
+		assertFalse(b.shoot(-8, -9));
+		
+		b.createShip(-9, 0, "v", ship);
+		assertFalse(b.shoot(-9, 0));
+		
+		b.createShip(10, 0, "v", ship);
+		assertFalse(b.shoot(10, 0));
+		
+		b.createShip(100, 0, "v", ship);
+		assertFalse(b.shoot(100, 0));
+		
+		b.createShip(-100, 0, "v", ship);
+		assertFalse(b.shoot(-100, 0));
+		
+	
+	}
+	
+	@Test
+	public void shootTwoCellShipTestValidInput() {
+		Ship ship = new TwoCellShip();
+		Board b = new Board(10,10);
+		
+		b.createShip(0, 0, "h", ship);
+		assertTrue(b.shoot(0, 0));
+		
+		b.createShip(0, 1, "h", ship);
+		assertTrue(b.shoot(0, 1));
+		
+		b.createShip(9, 9, "h", ship);
+		assertTrue(b.shoot(9, 9));
+		
+		b.createShip(5, 5, "h", ship);
+		assertTrue(b.shoot(5, 5));
+		
+		b.createShip(9, 8, "h", ship);
+		assertTrue(b.shoot(9, 8));
+		
+		b.createShip(8, 9, "h", ship);
+		assertTrue(b.shoot(8, 9));
+		
+		b.createShip(9, 0, "h", ship);
+		assertTrue(b.shoot(9, 0));
+		
+		//orientation = v
+		
+		b.createShip(0, 0, "v", ship);
+		assertTrue(b.shoot(0, 0));
+		
+		b.createShip(0, 1, "v", ship);
+		assertTrue(b.shoot(0, 1));
+		
+		b.createShip(9, 9, "v", ship);
+		assertTrue(b.shoot(9, 9));
+		
+		b.createShip(5, 5, "v", ship);
+		assertTrue(b.shoot(5, 5));
+		
+		b.createShip(9, 8, "v", ship);
+		assertTrue(b.shoot(9, 8));
+		
+		b.createShip(8, 9, "v", ship);
+		assertTrue(b.shoot(8, 9));
+		
+		b.createShip(9, 0, "v", ship);
+		assertTrue(b.shoot(9, 0));
+	}
+	
+	@Test
+	public void shootTwoCellShipTestInvalidInput() {
+		Ship ship = new TwoCellShip();
+		Board b = new Board(10,10);
+		
+		b.createShip(-1, 0, "h", ship);
+		assertFalse(b.shoot(-1, 0));
+		
+		b.createShip(0, -1, "h", ship);
+		assertFalse(b.shoot(0, -1));
+		
+		b.createShip(-9, -9, "h", ship);
+		assertFalse(b.shoot(-9, -9));
+		
+		b.createShip(-5, -5, "h", ship);
+		assertFalse(b.shoot(-5, -5));
+		
+		b.createShip(-9, -8, "h", ship);
+		assertFalse(b.shoot(-9, -8));
+		
+		b.createShip(-8, -9, "h", ship);
+		assertFalse(b.shoot(-8, -9));
+		
+		b.createShip(-9, 0, "h", ship);
+		assertFalse(b.shoot(-9, 0));
+		
+		b.createShip(10, 0, "h", ship);
+		assertFalse(b.shoot(10, 0));
+		
+		b.createShip(100, 0, "h", ship);
+		assertFalse(b.shoot(100, 0));
+		
+		b.createShip(-100, 0, "h", ship);
+		assertFalse(b.shoot(-100, 0));
+		
+		//orientation = v
+		
+		b.createShip(-1, 0, "v", ship);
+		assertFalse(b.shoot(-1, 0));
+		
+		b.createShip(0, -1, "v", ship);
+		assertFalse(b.shoot(0, -1));
+		
+		b.createShip(-9, -9, "v", ship);
+		assertFalse(b.shoot(-9, -9));
+		
+		b.createShip(-5, -5, "v", ship);
+		assertFalse(b.shoot(-5, -5));
+		
+		b.createShip(-9, -8, "v", ship);
+		assertFalse(b.shoot(-9, -8));
+		
+		b.createShip(-8, -9, "v", ship);
+		assertFalse(b.shoot(-8, -9));
+		
+		b.createShip(-9, 0, "v", ship);
+		assertFalse(b.shoot(-9, 0));
+		
+		b.createShip(10, 0, "v", ship);
+		assertFalse(b.shoot(10, 0));
+		
+		b.createShip(100, 0, "v", ship);
+		assertFalse(b.shoot(100, 0));
+		
+		b.createShip(-100, 0, "v", ship);
+		assertFalse(b.shoot(-100, 0));
+	}
+	@Test
+	public void shootThreeCellShipTestValidInput() {
+		Ship ship = new ThreeCellShip();
+		Board b = new Board(10,10);
+		
+		b.createShip(0, 0, "h", ship);
+		assertTrue(b.shoot(0, 0));
+		
+		b.createShip(0, 1, "h", ship);
+		assertTrue(b.shoot(0, 1));
+		
+		b.createShip(9, 9, "h", ship);
+		assertTrue(b.shoot(9, 9));
+		
+		b.createShip(5, 5, "h", ship);
+		assertTrue(b.shoot(5, 5));
+		
+		b.createShip(9, 8, "h", ship);
+		assertTrue(b.shoot(9, 8));
+		
+		b.createShip(8, 9, "h", ship);
+		assertTrue(b.shoot(8, 9));
+		
+		b.createShip(9, 0, "h", ship);
+		assertTrue(b.shoot(9, 0));
+	}
+	@Test
+	public void shootThreeCellShipTestInvalidInput() {
+		Ship ship = new ThreeCellShip();
+		Board b = new Board(10,10);
+		
+		b.createShip(-1, 0, "h", ship);
+		assertFalse(b.shoot(-1, 0));
+		
+		b.createShip(0, -1, "h", ship);
+		assertFalse(b.shoot(0, -1));
+		
+		b.createShip(-9, -9, "h", ship);
+		assertFalse(b.shoot(-9, -9));
+		
+		b.createShip(-5, -5, "h", ship);
+		assertFalse(b.shoot(-5, -5));
+		
+		b.createShip(-9, -8, "h", ship);
+		assertFalse(b.shoot(-9, -8));
+		
+		b.createShip(-8, -9, "h", ship);
+		assertFalse(b.shoot(-8, -9));
+		
+		b.createShip(-9, 0, "h", ship);
+		assertFalse(b.shoot(-9, 0));
+		
+		b.createShip(10, 0, "h", ship);
+		assertFalse(b.shoot(10, 0));
+		
+		b.createShip(100, 0, "h", ship);
+		assertFalse(b.shoot(100, 0));
+		
+		b.createShip(-100, 0, "h", ship);
+		assertFalse(b.shoot(-100, 0));
+	}
+	
+	@Test
+	public void shootFourCellShipTestValidInput() {
+		Ship ship = new FourCellShip();
+		Board b = new Board(10,10);
+		
+		b.createShip(0, 0, "h", ship);
+		assertTrue(b.shoot(0, 0));
+		
+		b.createShip(0, 1, "h", ship);
+		assertTrue(b.shoot(0, 1));
+		
+		b.createShip(9, 9, "h", ship);
+		assertTrue(b.shoot(9, 9));
+		
+		b.createShip(5, 5, "h", ship);
+		assertTrue(b.shoot(5, 5));
+		
+		b.createShip(9, 8, "h", ship);
+		assertTrue(b.shoot(9, 8));
+		
+		b.createShip(8, 9, "h", ship);
+		assertTrue(b.shoot(8, 9));
+		
+		b.createShip(9, 0, "h", ship);
+		assertTrue(b.shoot(9, 0));
+	}
+	
+	@Test
+	public void shootFourCellShipTestInvalidInput() {
+		Ship ship = new TwoCellShip();
+		Board b = new Board(10,10);
+		
+		b.createShip(-1, 0, "h", ship);
+		assertFalse(b.shoot(-1, 0));
+		
+		b.createShip(0, -1, "h", ship);
+		assertFalse(b.shoot(0, -1));
+		
+		b.createShip(-9, -9, "h", ship);
+		assertFalse(b.shoot(-9, -9));
+		
+		b.createShip(-5, -5, "h", ship);
+		assertFalse(b.shoot(-5, -5));
+		
+		b.createShip(-9, -8, "h", ship);
+		assertFalse(b.shoot(-9, -8));
+		
+		b.createShip(-8, -9, "h", ship);
+		assertFalse(b.shoot(-8, -9));
+		
+		b.createShip(-9, 0, "h", ship);
+		assertFalse(b.shoot(-9, 0));
+		
+		b.createShip(10, 0, "h", ship);
+		assertFalse(b.shoot(10, 0));
+		
+		b.createShip(100, 0, "h", ship);
+		assertFalse(b.shoot(100, 0));
+		
+		b.createShip(-100, 0, "h", ship);
+		assertFalse(b.shoot(-100, 0));
+	}
+	
+	@Test
+	public void shootWaterTest() {
+		Board b = new Board(10,10);
+		
+		assertFalse(b.shoot(9, 9));
+		
+		assertFalse(b.shoot(0, 0));
+		
+		assertFalse(b.shoot(0, 9));
+		
+		assertFalse(b.shoot(9, 0));
+		
+		assertFalse(b.shoot(5, 5));
+		
+		assertFalse(b.shoot(1, 0));
+		
+		assertFalse(b.shoot(0, 1));
+		
+		//Shoots near a ship
+		Ship s = new OneCellShip();
+		b.createShip(0, 0, "h", s);
+		assertFalse(b.shoot(0, 1));
+		
+		assertFalse(b.shoot(1, 0));
+		
+		Board b2 = new Board(10,10);
+		s = new TwoCellShip();
+		b2.createShip(9, 9, "h", s);
+		
+		assertFalse(b2.shoot(8, 8));
+		assertFalse(b2.shoot(8, 9));
+	}
 	
 	@Test
 	public void gettersTest() {

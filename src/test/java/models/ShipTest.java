@@ -103,62 +103,68 @@ public class ShipTest {
 	}
 
 	@Test
-	public void oneCellShipShootTest() {
+	public void oneCellShipShootTestInvalidInput() {
         Ship ship = new OneCellShip();
-        final int twoCellShipHealth = 1;
+        final int oneCellShipHealth = 1;
 
-        /* Test case 1. */
         ship.shoot(-1, 0);
         assertFalse(ship.isDown(-1, 0));
         assertEquals(ship.getHealth(), 1);
 
         ship.setAllShipsDownFalse();
-        ship.setHealth(twoCellShipHealth);
+        ship.setHealth(oneCellShipHealth);
 
-        /* Test case 2. */
         ship.shoot(0, -1);
         assertFalse(ship.isDown(0, -1));
         assertEquals(ship.getHealth(), 1);
 
         ship.setAllShipsDownFalse();
-        ship.setHealth(twoCellShipHealth);
-        
-        /* Test case 3. */
-        ship.shoot(5, 5);
-        assertTrue(ship.isDown(5, 5));
-        assertEquals(ship.getHealth(), 0);
+        ship.setHealth(oneCellShipHealth);
         
         ship.setAllShipsDownFalse();
-        ship.setHealth(twoCellShipHealth);
+        ship.setHealth(oneCellShipHealth);
 
-        /* Test case 4. */
-        ship.shoot(9, 9);
-        assertTrue(ship.isDown(9, 9));
-        assertEquals(ship.getHealth(), 0);
-
-        ship.setAllShipsDownFalse();
-        ship.setHealth(twoCellShipHealth);
-
-        /* Test case 5. */
         ship.shoot(10, 0);
         assertFalse(ship.isDown(10, 0));
-        assertEquals(ship.getHealth(), 1);
+        assertEquals(ship.getHealth(), oneCellShipHealth);
 
         ship.setAllShipsDownFalse();
-        ship.setHealth(twoCellShipHealth);
+        ship.setHealth(oneCellShipHealth);
         
-        /* Test case 6. */
         ship.shoot(0, 10);
         assertFalse(ship.isDown(0, 10));
-        assertEquals(ship.getHealth(), 1);
+        assertEquals(ship.getHealth(), oneCellShipHealth);
 	}
 	
 	@Test
-	public void twoCellShipShootTest() {
+	public void oneCellShipShootTestValidInput() {
+		Ship ship = new OneCellShip();
+		final int shipHealth = 0;
+        ship.shoot(0, 0);
+        assertTrue(ship.isDown(0, 0));
+        assertEquals(ship.getHealth(), shipHealth);
+        
+        ship = new OneCellShip();
+        ship.shoot(0, 9);
+        assertTrue(ship.isDown(0, 9));
+        assertEquals(ship.getHealth(),shipHealth);
+        
+        ship = new OneCellShip();
+        ship.shoot(5, 5);
+        assertTrue(ship.isDown(5, 5));
+        assertEquals(ship.getHealth(),shipHealth);
+        
+        ship = new OneCellShip();
+        ship.shoot(9, 9);
+        assertTrue(ship.isDown(9, 9));
+        assertEquals(ship.getHealth(), shipHealth);
+	}
+	
+	@Test
+	public void twoCellShipShootTestInvalidInput() {
         Ship ship = new TwoCellShip();
         final int twoCellShipHealth = 2;
 
-        /* Test case 1. */
         ship.shoot(-1, 0);
         assertFalse(ship.isDown(-1, 0));
         assertTrue(ship.getHealth() == 2);
@@ -166,143 +172,217 @@ public class ShipTest {
         ship.setAllShipsDownFalse();
         ship.setHealth(twoCellShipHealth);
 
-        /* Test case 2. */
         ship.shoot(0, -1);
         assertFalse(ship.isDown(0, -1));
-        assertTrue(ship.getHealth() == 2);
+        assertTrue(ship.getHealth() == twoCellShipHealth);
 
         ship.setAllShipsDownFalse();
         ship.setHealth(twoCellShipHealth);
-        
-        /* Test case 3. */
-        ship.shoot(5, 5);
-        assertTrue(ship.isDown(5, 5));
-        assertTrue(ship.getHealth() == 1);
-        
-        ship.setAllShipsDownFalse();
-        ship.setHealth(twoCellShipHealth);
+ 
 
-        /* Test case 4. */
-        ship.shoot(9, 9);
-        assertTrue(ship.isDown(9, 9));
-        assertTrue(ship.getHealth() == 1);
-
-        ship.setAllShipsDownFalse();
-        ship.setHealth(twoCellShipHealth);
-
-        /* Test case 5. */
         ship.shoot(10, 0);
         assertFalse(ship.isDown(10, 0));
-        assertTrue(ship.getHealth() == 2);
+        assertTrue(ship.getHealth() == twoCellShipHealth);
 
         ship.setAllShipsDownFalse();
         ship.setHealth(twoCellShipHealth);
         
-        /* Test case 6. */
         ship.shoot(0, 10);
         assertFalse(ship.isDown(0, 10));
-        assertTrue(ship.getHealth() == 2);
+        assertTrue(ship.getHealth() == twoCellShipHealth);
 	}
 	
 	@Test
-    public void threeCellShipShootTest() {
+	public void twoCellShipShootTestValidInput() {
+		Ship ship = new TwoCellShip();
+		final int healthOfTwoCellShipShooted = 1;
+		
+        ship.shoot(0, 0);
+        assertTrue(ship.isDown(0, 0));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(9, 9);
+        assertTrue(ship.isDown(9, 9));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(0, 9);
+        assertTrue(ship.isDown(0, 9));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(9, 0);
+        assertTrue(ship.isDown(9, 0));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(5, 5);
+        assertTrue(ship.isDown(5, 5));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(8, 9);
+        assertTrue(ship.isDown(8, 9));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(9, 8);
+        assertTrue(ship.isDown(9, 8));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(0, 1);
+        assertTrue(ship.isDown(0, 1));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        ship = new TwoCellShip();
+        ship.shoot(1, 0);
+        assertTrue(ship.isDown(1, 0));
+        assertTrue(ship.getHealth() == healthOfTwoCellShipShooted);
+        
+        
+	}
+	@Test
+    public void threeCellShipShootTestInvalidInput() {
         Ship ship = new ThreeCellShip();
         final int threeCellShipHealth = 3;
 
-        /* Test case 1. */
         ship.shoot(-1, 0);
         assertFalse(ship.isDown(-1, 0));
-        assertTrue(ship.getHealth() == 3);
+        assertTrue(ship.getHealth() == threeCellShipHealth);
 
         ship.setAllShipsDownFalse();
         ship.setHealth(threeCellShipHealth);
 
-        /* Test case 2. */
         ship.shoot(0, -1);
         assertFalse(ship.isDown(0, -1));
-        assertTrue(ship.getHealth() == 3);
-
-        ship.setAllShipsDownFalse();
-        ship.setHealth(threeCellShipHealth);
-        
-        /* Test case 3. */
-        ship.shoot(5, 5);
-        assertTrue(ship.isDown(5, 5));
-        assertTrue(ship.getHealth() == 2);
-        
-        ship.setAllShipsDownFalse();
-        ship.setHealth(threeCellShipHealth);
-
-        /* Test case 4. */
-        ship.shoot(9, 9);
-        assertTrue(ship.isDown(9, 9));
-        assertTrue(ship.getHealth() == 2);
+        assertTrue(ship.getHealth() == threeCellShipHealth);
 
         ship.setAllShipsDownFalse();
         ship.setHealth(threeCellShipHealth);
 
-        /* Test case 5. */
         ship.shoot(10, 0);
         assertFalse(ship.isDown(10, 0));
-        assertTrue(ship.getHealth() == 3);
+        assertTrue(ship.getHealth() == threeCellShipHealth);
 
         ship.setAllShipsDownFalse();
         ship.setHealth(threeCellShipHealth);
         
-        /* Test case 6. */
         ship.shoot(0, 10);
         assertFalse(ship.isDown(0, 10));
-        assertTrue(ship.getHealth() == 3);
+        assertTrue(ship.getHealth() == threeCellShipHealth);
     }
 	
 	@Test
-    public void fourCellShipShootTest() {
-        Ship ship = new FourCellShip();
-        final int threeCellShipHealth = 4;
-
-        /* Test case 1. */
-        ship.shoot(-1, 0);
-        assertFalse(ship.isDown(-1, 0));
-        assertTrue(ship.getHealth() == 4);
-
-        ship.setAllShipsDownFalse();
-        ship.setHealth(threeCellShipHealth);
-
-        /* Test case 2. */
-        ship.shoot(0, -1);
-        assertFalse(ship.isDown(0, -1));
-        assertTrue(ship.getHealth() == 4);
-
-        ship.setAllShipsDownFalse();
-        ship.setHealth(threeCellShipHealth);
+    public void threeCellShipShootTestValidInput() {
+		final int healthOfThreeCellShipShooted = 2;
+		
+		Ship ship = new ThreeCellShip();
         
-        /* Test case 3. */
-        ship.shoot(5, 5);
-        assertTrue(ship.isDown(5, 5));
-        assertTrue(ship.getHealth() == 3);
+		ship = new ThreeCellShip();
+        ship.shoot(1, 0);
+        assertTrue(ship.isDown(1, 0));
+        assertTrue(ship.getHealth() == healthOfThreeCellShipShooted);
         
-        ship.setAllShipsDownFalse();
-        ship.setHealth(threeCellShipHealth);
-
-        /* Test case 4. */
+		ship = new ThreeCellShip();
+        ship.shoot(0, 1);
+        assertTrue(ship.isDown(0, 1));
+        assertTrue(ship.getHealth() == healthOfThreeCellShipShooted);
+        
+		ship = new ThreeCellShip();
+        ship.shoot(9, 0);
+        assertTrue(ship.isDown(9, 0));
+        assertTrue(ship.getHealth() == healthOfThreeCellShipShooted);
+        
+		ship = new ThreeCellShip();
+        ship.shoot(0, 9);
+        assertTrue(ship.isDown(0, 9));
+        assertTrue(ship.getHealth() == healthOfThreeCellShipShooted);
+        
+		ship = new ThreeCellShip();
+        ship.shoot(9, 8);
+        assertTrue(ship.isDown(9, 8));
+        assertTrue(ship.getHealth() == healthOfThreeCellShipShooted);
+        
+		ship = new ThreeCellShip();
+        ship.shoot(8, 9);
+        assertTrue(ship.isDown(8, 9));
+        assertTrue(ship.getHealth() == healthOfThreeCellShipShooted);
+        
+        ship = new ThreeCellShip();
         ship.shoot(9, 9);
         assertTrue(ship.isDown(9, 9));
-        assertTrue(ship.getHealth() == 3);
+        assertTrue(ship.getHealth() == healthOfThreeCellShipShooted);
+	}
+	
+	@Test
+    public void fourCellShipShootTestInvalidInput() {
+        Ship ship = new FourCellShip();
+        final int fourCellShipHealth = 4;
+
+        ship.shoot(-1, 0);
+        assertFalse(ship.isDown(-1, 0));
+        assertTrue(ship.getHealth() == fourCellShipHealth);
 
         ship.setAllShipsDownFalse();
-        ship.setHealth(threeCellShipHealth);
+        ship.setHealth(fourCellShipHealth);
 
-        /* Test case 5. */
+        ship.shoot(0, -1);
+        assertFalse(ship.isDown(0, -1));
+        assertTrue(ship.getHealth() == fourCellShipHealth);
+
+        ship.setAllShipsDownFalse();
+        ship.setHealth(fourCellShipHealth);
+
         ship.shoot(10, 0);
         assertFalse(ship.isDown(10, 0));
         assertTrue(ship.getHealth() == 4);
 
         ship.setAllShipsDownFalse();
-        ship.setHealth(threeCellShipHealth);
+        ship.setHealth(fourCellShipHealth);
         
-        /* Test case 6. */
         ship.shoot(0, 10);
         assertFalse(ship.isDown(0, 10));
-        assertTrue(ship.getHealth() == 4);
+        assertTrue(ship.getHealth() == fourCellShipHealth);
     }
+	
+	@Test
+    public void fourCellShipShootTesValidInput() {
+		final int healthOfFourCellShipShooted = 3;
+		Ship ship = new FourCellShip();
+        ship.shoot(5, 5);
+        assertTrue(ship.isDown(5, 5));
+        assertTrue(ship.getHealth() == healthOfFourCellShipShooted);
+        
+		ship = new FourCellShip();
+        ship.shoot(0, 0);
+        assertTrue(ship.isDown(0, 0));
+        assertTrue(ship.getHealth() == healthOfFourCellShipShooted);
+        
+		ship = new FourCellShip();
+        ship.shoot(9, 9);
+        assertTrue(ship.isDown(9, 9));
+        assertTrue(ship.getHealth() == healthOfFourCellShipShooted);
+        
+		ship = new FourCellShip();
+        ship.shoot(9, 8);
+        assertTrue(ship.isDown(9, 8));
+        assertTrue(ship.getHealth() == healthOfFourCellShipShooted);
+        
+		ship = new FourCellShip();
+        ship.shoot(0, 9);
+        assertTrue(ship.isDown(0, 9));
+        assertTrue(ship.getHealth() == healthOfFourCellShipShooted);
+        
+		ship = new FourCellShip();
+        ship.shoot(0, 1);
+        assertTrue(ship.isDown(0, 1));
+        assertTrue(ship.getHealth() == healthOfFourCellShipShooted);
+        
+		ship = new FourCellShip();
+        ship.shoot(9, 8);
+        assertTrue(ship.isDown(9, 8));
+        assertTrue(ship.getHealth() == healthOfFourCellShipShooted);
+	}
 }

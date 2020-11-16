@@ -31,7 +31,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void isEndGameTest() {
+	public void isAllShipsSunkTest() {
 		//Test 1 - Board with one ship down (isEndGame=true)
 		Player p1 = new Player("name");
 		OneCellShip ocs1 = new OneCellShip();
@@ -67,6 +67,24 @@ public class PlayerTest {
 		//Test 5 - Board with no one ship 
 		Player p5 = new Player("name");
 		assertTrue(p5.isAllShipsSunk());
+		
+		//Test 6
+		Player p6 = new Player("name");
+		TwoCellShip tcs = new TwoCellShip();
+		tcs.setSunk();
+		p6.createShip(0, 0, "h", tcs);
+		assertTrue(p6.isAllShipsSunk());
+		
+		//Test 7
+		Player p7 = new Player("name");
+		TwoCellShip tcs2 = new TwoCellShip();
+		tcs2.setSunk();
+		p7.createShip(0, 0, "h", tcs2);
+		TwoCellShip tcs3 = new TwoCellShip();
+		p7.createShip(5,5, "h", tcs3);
+		
+		assertFalse(p7.isAllShipsSunk());
+		
 	}
 
 	@Test
@@ -166,6 +184,7 @@ public class PlayerTest {
 	public void createShipTest() {
 		Player player = new Player("player1");
 		Ship ship = new OneCellShip();
+		Ship ship2 = new TwoCellShip();
 		
 		assertTrue(player.createShip(0, 0, "h", ship));
 		
@@ -217,8 +236,7 @@ public class PlayerTest {
 		
 		assertFalse(player3.createShip(-1, 0, "h", ship));
 		
-		assertFalse(player3.createShip(0, -1, "h", ship));
-		
+		assertFalse(player3.createShip(0, -1, "h", ship));		
 		
 	}
 	
