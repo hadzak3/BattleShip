@@ -3,9 +3,12 @@ package controller;
 import java.util.ArrayList;
 
 import constants.Constants;
+import model.FourCellShip;
 import model.OneCellShip;
 import model.Player;
 import model.Ship;
+import model.ThreeCellShip;
+import model.TwoCellShip;
 
 
 public class PlayerVersusPlayer extends Game {
@@ -18,7 +21,7 @@ public class PlayerVersusPlayer extends Game {
 	public void initializeGame() {
 		ArrayList<Ship> ships = new ArrayList<>();
 		ships.add(new OneCellShip());
-		//ships.add(new TwoCellShip());
+		ships.add(new TwoCellShip());
 		//ships.add(new ThreeCellShip());
 		//ships.add(new FourCellShip());
 		

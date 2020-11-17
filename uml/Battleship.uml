@@ -1,0 +1,165 @@
+@startuml
+
+main.Main ..> controller.Game : creates
+controller.Game ..> view.View
+controller.Game -> "2" model.Player : creates
+model.Player --> model.Board : contains
+model.Board --> "18" model.Cell : contains
+model.Cell --> "0..1" model.Ship
+model.Board --> "4" model.Ship : contains   
+
+
+class model.Board [[java:model.Board]] {
+	-int nRows
+	-int nCols
+	-Cell[][] cells
+	-ArrayList<Ship> ships
+	+Board(int nRows, int nCols)
+	+void setAllCellsWater()
+	+int getNRows()
+	+int getNCols()
+	+Cell[][] getCells()
+	+ArrayList<Ship> getShips()
+	+boolean createShip(int x0, int y0, String orientation, Ship ship)
+	+boolean isShipCell(int x, int y)
+	+boolean shoot(int x, int y)
+	+boolean isAllShipsSunk()
+	+boolean isCorrectCoordinates(int x, int y)
+}
+
+class model.Cell [[java:model.Cell]] {
+	-String state
+	-Ship ship
+	+Cell()
+	+void setShip(Ship ship)
+	+Ship getShip()
+	+String getState()
+	+boolean isShip()
+	+void shootShip(int x, int y)
+	+boolean isShipDown(int x, int y)
+}
+
+
+class constants.Constants [[java:constants.Constants]] {
+	+{static}int N_BOARD_ROWS_CELLS
+	+{static}int N_PLAYERS
+	+{static}String SHIP_HORIZONTAL
+	+{static}String SHIP_VERTICAL
+	+{static}String WATER_CELL_STATE
+	+{static}String SUNK_CELL_STATE
+}
+
+abstract class controller.Game [[java:controller.Game]] {
+	+ArrayList<Player> players
+	+Player winner
+	#View battleShipView
+	#int playersCount
+	+Game()
+	+ArrayList<Player> getPlayers()
+	+void playOneGame()
+	+{abstract}void initializeGame()
+	+{abstract}int makePlay(int currentPlayerId)
+	+boolean endOfGame()
+	+void printWinner(int playerId)
+	+boolean isCorrectShipOrientation(String shipOrientation)
+	+boolean isCorrectInputCoordinate(String coordinate)
+	+boolean isCorrectPlayerName(String playerName)
+}
+
+class controller.PlayerVersusPlayer [[java:controller.PlayerVersusPlayer]] extends controller.Game {
+	+PlayerVersusPlayer()
+	+void initializeGame()
+	+int makePlay(int currentPlayerId)
+}
+
+class controller.MockPlayerVersusPlayer [[java:controller.MockPlayerVersusPlayer]] extends controller.Game {
+	-int[] shootsX
+	-int[] shootsY
+	-int index
+	+MockPlayerVersusPlayer()
+	+void initializeGame()
+	+int makePlay(int currentPlayerId)
+}
+
+class model.Player [[java:model.Player]] {
+	-String name
+	-Board shipsBoard
+	-String[][] shootsBoard
+	+Player()
+	+Player(String name)
+	+String[][] setAllShootsBoardWater()
+	+String getName()
+	+Board getShipsBoard()
+	+String[][] getShootsBoard()
+	+boolean isAllShipsSunk()
+	+boolean createShip(int x, int y, String orientation, Ship ship)
+	+boolean shoot(int x, int y)
+	+boolean isCorrectName(String name)
+	+boolean isCorrectBoard(Board board)
+	+boolean isCorrectCoordinates(int x, int y)
+}
+
+class view.View [[java:view.View]] {
+	-String input
+	-Scanner scanner
+	+View()
+	+void showMsg(String msg)
+	+void showSectionLine()
+	+void showSubSectionLine()
+	+String askPlayerName()
+	+String askShipOrientation()
+	+String askCoordinateX()
+	+String askCoordinateY()
+	+void showPlayerShipsBoard(Player player)
+	+void showPlayerShootsBoard(Player player)
+	+void waitBetweenChangingPlayerTurn(int seconds)
+	+void printWinner(String name)
+}
+
+class main.Main [[java:main.Main]] {
+	+{static}void main(String[] args)
+}
+
+abstract class model.Ship [[java:model.Ship]] {
+	-int nCells
+	-int health
+	-boolean[][] down
+	~Ship(int health)
+	+int getNCells()
+	+void setHealth(int health)
+	+int getHealth()
+	+boolean[][] setAllShipsDownFalse()
+	+void setDown(int x, int y)
+	+boolean isDown(int x, int y)
+	+boolean isSunk()
+	+void setSunk()
+	+void shoot(int x, int y)
+	+boolean isCorrectHealth(int health)
+	+boolean isCorrectCoordinates(int x, int y)
+}
+
+class model.OneCellShip [[java:boatSink.OneCellShip]] extends model.Ship {
+	-{static}int HEALTH
+	
+	~OneCellShip()
+}
+
+class model.TwoCellShip [[java:boatSink.TwoCellShip]] extends model.Ship {
+	-{static}int HEALTH
+	
+	~OneCellShip()
+}
+
+class model.ThreeCellShip [[java:boatSink.ThreeCellShip]] extends model.Ship {
+	-{static}int HEALTH
+	
+	~OneCellShip()
+}
+
+class model.FourCellShip [[java:boatSink.FourCellShip]] extends model.Ship {
+	-{static}int HEALTH
+	
+	~OneCellShip()
+}
+
+@enduml
