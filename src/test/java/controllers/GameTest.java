@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class GameTest {
     
     @Test 
-    public void testPlayerName() {
+    public void isCorrectPlayerNameTest() {
     	Game controller = new MockPlayerVersusPlayer();
     	
     	boolean res1 = controller.isCorrectPlayerName("");
@@ -31,7 +31,7 @@ public class GameTest {
     }
     
     @Test
-    public void testShipOrientation() {
+    public void isCorrectShipOrientationTest() {
     	Game controller = new MockPlayerVersusPlayer();
     	
     	boolean res1 = controller.isCorrectShipOrientation("");
@@ -63,7 +63,7 @@ public class GameTest {
     }
     
     @Test
-    public void testShipCoordinate() {
+    public void isCorrectInputCoordinateTest() {
     	Game controller = new MockPlayerVersusPlayer();
     	
     	boolean res1 = controller.isCorrectInputCoordinate("-1");
@@ -86,7 +86,7 @@ public class GameTest {
     }
     
     @Test 
-    public void initializeGame() {
+    public void initializeGameTest() {
     	Game controller = new MockPlayerVersusPlayer();
     	/** 
     	 * initializes both players (player 1 and player 2) boards in the following state ('o' is a ship):
@@ -135,7 +135,7 @@ public class GameTest {
     }
     
     @Test 
-    public void makePlay() {
+    public void makePlayTest() {
     	Game controller = new MockPlayerVersusPlayer();
     	/** 
     	 * Initializes both players (player 1 and player 2) boards in the following state ('o' is a ship):
@@ -261,7 +261,7 @@ public class GameTest {
     }
     
     @Test 
-    public void endOfGame() {
+    public void endOfGameTest() {
     	Game controller = new MockPlayerVersusPlayer();
     	/** 
     	 * Initialize players boards with given ships coordinates ('o' is a ship):
